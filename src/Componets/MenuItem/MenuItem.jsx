@@ -1,7 +1,8 @@
 import React from 'react';
-import { MenuData } from '../../CustomHooks/MenuData/MenuData';
+
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import OrderTab from './OrderTab/OrderTab';
+import MenuData from '../../CustomHooks/MenuData/MenuData';
 const MenuItem = () => {
       const { menu, isLoading, error } = MenuData();
       // console.log(data, isLoading)

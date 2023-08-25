@@ -6,7 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import { addToDb } from '../../utitilies/databse';
+import MenuData from '../../../CustomHooks/MenuData/MenuData';
 const FoodCard = ({ item }) => {
+  const {menu,isLoading,refetch}= MenuData()
   const [url] = useUrl();
   const { name, image, price, recipe, id,category  } = item;
   const [quantity, setQuantity] = useState(0);
@@ -42,49 +44,9 @@ const FoodCard = ({ item }) => {
     };
     setuser(OrderItem);
         addToDb(id,OrderItem)
-        setloading(!loading)
+        location.reload();
 
-    // post method for adding order in database
-
-
-    // const res = await fetch(`${url}/orderItem`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(newUser)
-    // })
-
-    // const responseData = await res.json();
-
-    // if (responseData?.Inserted > 0) {
-    //   toast.success(responseData.message, {
-    //     position: "top-right",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    // }
-    // else {
-    //   toast.error(responseData.message, {
-    //     position: "top-right",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    // }
-
-
-
-    // console.log(newUser);
+  
   };
   // console.log(quantity,user )
   return (
@@ -109,24 +71,7 @@ const FoodCard = ({ item }) => {
                 required
               />
             </label>
-            {/* <label className="text-sm">
-              Enter your Name:
-              <input
-                className="border bg-slate-100 py-1 px-4 rounded-md"
-                type="text"
-                {...register('name', { required: true })}
-                required
-              />
-            </label>
-            <label className="text-sm">
-              Enter your Mobile:
-              <input
-                className="border bg-slate-100 py-1 px-4 rounded-md"
-                type="text"
-                {...register('mobile', { required: true })}
-                required
-              />
-            </label> */}
+           
             <button
               onClick={handleAddToCart}
               className="btn btn-outline border-0 border-b-4 bg-slate-100 border-orange-400 py-2 rounded-md hover:bg-slate-200 transition-colors"

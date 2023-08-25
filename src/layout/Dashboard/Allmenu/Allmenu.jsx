@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MenuData } from '../../../CustomHooks/MenuData/MenuData';
+import MenuData  from '../../../CustomHooks/MenuData/MenuData';
 import { Link } from 'react-router-dom';
 
 const Allmenu = () => {

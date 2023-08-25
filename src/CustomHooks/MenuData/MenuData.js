@@ -1,28 +1,20 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+
+import { useQuery } from "@tanstack/react-query";
 import useUrl from "../URL/UseUrl";
 
-export const MenuData = () => {
+const MenuData = () => {
   const [url]=useUrl();
-  const [menu, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  //console.log(data);
+ 
+  const {data:menu=[], isLoading,refetch}= useQuery({
+    queryKey:['menu'],
+    queryFn:async()=>{
+      const res= await fetch(`${url}/menu`)
+      return res.json()
+    }
+  })
+ ; 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${url}/menu`); // Make sure the URL is correct
-        setData(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []); // The dependency array should be empty to fetch data only once
-
-  return { menu, isLoading, error };
+  return { menu, isLoading,refetch };
 };
+
+export default MenuData

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import useUrl from '../../../CustomHooks/URL/UseUrl';
+import { ToastContainer, toast } from 'react-toastify';
 
 const AddEmploy = () => {
+  const [url]=useUrl();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,15 +18,73 @@ const AddEmploy = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Handle form submission here, e.g. make a POST request to your API
     console.log(formData);
+    try {
+      const res = await fetch(`${url}/employee`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const responseData = await res.json();
+
+
+
+      if (responseData.Inserted > 0) {
+
+        toast.success(responseData.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+
+        });
+        // deleteShoppingCart();
+
+
+
+
+
+      } else {
+        toast.error(responseData.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error("Error while sending the order:", error);
+      toast.error("Error while sending the order. Please try again later.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   return (
     <div className="flex w-full justify-center items-center text-amber-100  m-3 mx-auto p-4">
       <div className="w-full font-bold   p-6 rounded shadow-2xl bg-gray-800 ">
+        <ToastContainer/>
         <h1 className="text-2xl font-bold mb-4 text-center text-white">Add Employee</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
