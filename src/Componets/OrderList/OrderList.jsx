@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { OrderData } from '../../CustomHooks/OrderData/OrderData';
 
 const OrderList = () => {
   const { order, isLoading, error } = OrderData();
+  const [expandedOrderId, setExpandedOrderId] = useState(null);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,9 +23,23 @@ const OrderList = () => {
     return result;
   }, {});
 
-  const handleActionClick = (mobile) => {
-    // Handle the action when the button is clicked
-    console.log(`Action clicked for mobile: ${mobile}`);
+  const handleActionClick = (orderId) => {
+    // Toggle collapse state
+    if (expandedOrderId === orderId) {
+      setExpandedOrderId(null);
+    } else {
+      setExpandedOrderId(orderId);
+    }
+  };
+
+  const handleOnlinePayment = (orderId) => {
+    // Handle online payment logic
+    console.log(`Initiating online payment for order: ${orderId}`);
+  };
+
+  const handleCashPayment = (orderId) => {
+    // Handle cash payment logic
+    console.log(`Accepting cash payment for order: ${orderId}`);
   };
 
   return (
@@ -71,10 +86,35 @@ const OrderList = () => {
                   {itemIndex === 0 && (
                     <td rowSpan={orders.length} className="border px-4 py-2">
                       <button
-                        onClick={() => handleActionClick(mobile)}
+                        onClick={() => handleActionClick(orderItem.order_id)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
                       >
-                       Close
+                        {expandedOrderId === orderItem.order_id ? 'Close' : 'Open'}
+                      </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+              {orders.map((orderItem, itemIndex) => (
+                <tr key={itemIndex}>
+                  {itemIndex === 0 && (
+                    <td
+                      rowSpan={orders.length}
+                      className={`border px-4 py-2 ${
+                        expandedOrderId === orderItem.order_id ? 'block' : 'hidden'
+                      }`}
+                    >
+                      <button
+                        onClick={() => handleOnlinePayment(orderItem.order_id)}
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded mr-2"
+                      >
+                       Credit
+                      </button>
+                      <button
+                        onClick={() => handleCashPayment(orderItem.order_id)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                      >
+                        Cash
                       </button>
                     </td>
                   )}
