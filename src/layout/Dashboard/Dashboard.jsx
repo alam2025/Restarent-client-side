@@ -24,6 +24,7 @@ const Dashboard = () => {
             <li><NavLink to='addmenu'>Add Menu</NavLink></li>
             <li><NavLink to='allmenu'>All Menu</NavLink></li>
             <li><NavLink to='addemploy'>Add Emply</NavLink></li>
+            <li><NavLink to='allemploy'>ALL Emply</NavLink></li>
             <li><NavLink to='/'>Home</NavLink></li>
           </ul>
 

@@ -9,6 +9,9 @@ import AddMenu from "../layout/Dashboard/Addmenu/AddMenu";
 import AddEmploy from "../layout/Dashboard/Addemploy/AddEmploy";
 import Allmenu from "../layout/Dashboard/Allmenu/Allmenu";
 import Editmenu from "../layout/Dashboard/EditMenu/Editmenu";
+import AllEmploy from "../layout/Dashboard/AllEmploy/AllEmploy";
+import EmplyEdidt from "../layout/Dashboard/EmplyEdidt/EmplyEdidt";
+
 
 const router = createBrowserRouter([
   {
@@ -53,6 +56,16 @@ const router = createBrowserRouter([
       {
         path: 'edit/:id',
         element: <Editmenu/>
+      },
+      {
+        path: 'emplyedit/:id',
+        element: <EmplyEdidt/>
+      },
+      
+      {
+        path: 'allemploy',
+        element: <AllEmploy/>
+       
       },
       
       {
