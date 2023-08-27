@@ -14,6 +14,8 @@ import EmplyEdidt from "../layout/Dashboard/EmplyEdidt/EmplyEdidt";
 import TodaysAttendance from "../layout/Dashboard/Attendance/TodaysAttendays/TodaysAttendance";
 import EmployeeAttendance from "../layout/Dashboard/Attendance/EmployeeAttendance/EmployeeAttendance";
 import AttendanceSheet from "../layout/Dashboard/Attendance/AttendanceSheet/AttendanceSheet";
+import Login from "../Login/Login";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -31,10 +33,14 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'login',
+    element:<Login/>
+  },
 
   {
     path: 'dashboard',
-    element: <Dashboard />,
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
       {
         path: '', // Empty path for the default child route
@@ -73,7 +79,7 @@ const router = createBrowserRouter([
       
       {
         path: 'statistics',
-        element: <Statistics />
+        element: <PrivateRoute><Statistics /></PrivateRoute>
       },
       {
         path:"todays-attendance",

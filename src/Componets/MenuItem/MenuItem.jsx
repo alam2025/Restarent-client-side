@@ -4,17 +4,18 @@ import OrderTab from './OrderTab/OrderTab';
 import MenuData from '../../CustomHooks/MenuData/MenuData';
 
 const MenuItem = () => {
-  const { menu, isLoading, error } = MenuData();
-
+  const { menu, isLoading } = MenuData();
+  console.log(menu);
+  if (isLoading) {
+    return <span className="loading loading-spinner loading-lg text-center mx-auto"></span>;
+  }
   const deserts = menu?.filter(item => item.category === 'dessert');
   const soup = menu?.filter(item => item.category === 'soup');
   const salad = menu?.filter(item => item.category === 'salad');
   const pizza = menu?.filter(item => item.category === 'pizza');
   const drinks = menu?.filter(item => item.category === 'drinks');
 
-  if (isLoading) {
-    return <span className="loading loading-spinner loading-lg text-center mx-auto"></span>;
-  }
+ 
 
   return (
     <div className="mx-auto w-full">

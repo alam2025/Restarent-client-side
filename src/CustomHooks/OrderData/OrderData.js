@@ -12,7 +12,7 @@ export const OrderData = () => {
       try {
         const response = await axios.get(`${url}/orders`);
         setOrder(response.data);
-        console.log(response.data)
+    
         setIsLoading(false);
       } catch (error) {
         setError(error);
