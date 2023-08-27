@@ -89,7 +89,7 @@ const OrderList = () => {
                         onClick={() => handleActionClick(orderItem.order_id)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
                       >
-                        {expandedOrderId === orderItem.order_id ? 'Close' : 'Open'}
+                        {expandedOrderId === orderItem.order_id ? 'Close' : 'Way to purchas'}
                       </button>
                     </td>
                   )}
