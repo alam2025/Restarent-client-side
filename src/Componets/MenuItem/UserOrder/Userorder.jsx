@@ -18,19 +18,19 @@ const Userorder = () => {
       useEffect(() => {
             const data = getShoppingCart();
             
-       console.log(data)
+      //  console.log(data)
             if (Array.isArray(data)) {
                   setOrderData(data);
                   const total = data.reduce((total, orderItem) => {
                         return total + orderItem.foodPrice * orderItem.quantity;
                   }, 0);
-                  setTotal(total);
+                  setTotal(total.toFixed(2));
             } else {
                   console.error("Error: getShoppingCart() did not return an array.");
             }
       }, []);
 
-      
+      // console.log(total)
 
       const onSubmit = async (data, e) => {
             e.preventDefault();
@@ -42,7 +42,7 @@ const Userorder = () => {
                   total: total,
             };
 
-           
+      //      console.log(orderItem)
 
             try {
                   const res = await fetch(`${url}/orderItem`, {

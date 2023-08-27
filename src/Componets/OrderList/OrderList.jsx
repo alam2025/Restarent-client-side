@@ -41,9 +41,12 @@ const OrderList = () => {
     // Handle cash payment logic
     console.log(`Accepting cash payment for order: ${orderId}`);
   };
-
+console.log(OrderList);
   return (
-    <div className="p-6 w-full bg-black text-white ">
+    <div className="p-6 w-full text-black">
+      <h1 className="font-bold text-2xl p-3 text-center">Order List</h1>
+      <hr />
+      <br></br>
       <table className="w-full border border-gray-300">
         <thead>
           <tr>
@@ -74,7 +77,14 @@ const OrderList = () => {
                     </React.Fragment>
                   )}
                   <td className="border px-4 py-2">{orderItem.order_id}</td>
-                  <td className="border px-4 py-2">{orderItem.items[0].food_id}</td>
+                  <td className="border px-4 py-2"><ul>
+                    
+                      {orderItem.items[0].food_id}
+                    
+                    
+                    </ul>
+                    
+                    </td>
                   <td className="border px-4 py-2">{orderItem.items[0].food_name}</td>
                   <td className="border px-4 py-2">{orderItem.items[0].food_price}</td>
                   <td className="border px-4 py-2">{orderItem.items[0].quantity}</td>
@@ -89,7 +99,7 @@ const OrderList = () => {
                         onClick={() => handleActionClick(orderItem.order_id)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
                       >
-                        {expandedOrderId === orderItem.order_id ? 'Close' : 'Way to purchas'}
+                        {expandedOrderId === orderItem.order_id ? 'Close' : 'Way to purchase'}
                       </button>
                     </td>
                   )}
@@ -108,7 +118,7 @@ const OrderList = () => {
                         onClick={() => handleOnlinePayment(orderItem.order_id)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded mr-2"
                       >
-                       Credit
+                        Credit
                       </button>
                       <button
                         onClick={() => handleCashPayment(orderItem.order_id)}
