@@ -43,7 +43,7 @@ const OrderList = () => {
   };
 
   return (
-    <div className="p-6 w-full bg-black text-white h-screen">
+    <div className="p-6 w-full bg-black text-white ">
       <table className="w-full border border-gray-300">
         <thead>
           <tr>
