@@ -1,14 +1,65 @@
 import React from 'react';
 import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
 import { Link, NavLink } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const AllEmploy = () => {
   const { employee, isLoading, refetch } = AllemployData();
   console.log(employee);
 
-  const onDelete = (id) => {
-    // Implement your delete logic here
-  };
+  const onDelete = async (id) => {
+      console.log(id)
+      try {
+        const res = await fetch(`${url}/employees/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        const responseData = await res.json();
+    
+        if (responseData.deleted > 0) {
+          toast.success(responseData.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+    
+          // You may want to refetch the employee data after successful deletion
+          refetch();
+        } else {
+          toast.error(responseData.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+        }
+      } catch (error) {
+        console.error('Error while sending the request:', error);
+        toast.error('Error while sending the request. Please try again later.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
+    };
+    
 
   return (
     <div className='w-full p-4'>
@@ -16,6 +67,7 @@ const AllEmploy = () => {
         <p>Loading...</p>
       ) : (
         <div className="flex flex-col w-full">
+            <ToastContainer></ToastContainer>
           <div className="overflow-x-auto w-full">
             <table className="min-w-full border border-gray-300">
               <thead>
