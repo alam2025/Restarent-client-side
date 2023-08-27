@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import MenuData  from '../../../CustomHooks/MenuData/MenuData';
 import { Link } from 'react-router-dom';
+import useUrl from '../../../CustomHooks/URL/UseUrl';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Allmenu = () => {
-  const { menu } = MenuData();
+  const { menu,isLoading,refetch } = MenuData();
+  const[url]=useUrl();
   const categories = [...new Set(menu.map(item => item.category))];
 
   const [selectedCategory, setSelectedCategory] = useState('salad');
@@ -16,10 +19,57 @@ const Allmenu = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
-  const handleDelete = (item) => {
-    console.log('Delete item:', item.id);
+  const handleDelete = async (itemToDelete) => {
+    try {
+      const response = await fetch(`${url}/menu`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: itemToDelete.id }), // Pass the ID in the request body
+      });
+  
+      if (response.ok) {
+        // Item deleted successfully
+        toast.success('Item deleted successfully', {
+          position: 'top-right',
+          autoClose: 3000, // Adjust the autoClose duration as needed
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        console.log('Item deleted:', itemToDelete.id);
+        refetch();
+        // You can update your UI or fetch updated menu data here
+      } else {
+        const errorData = await response.json();
+        toast.error(`Error deleting item: ${errorData.message}`, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        console.error('Error deleting item:', errorData.message);
+      }
+    } catch (error) {
+      toast.error('An error occurred while deleting the item.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      console.error('Error while deleting item:', error);
+    }
   };
+  
 
   const filteredMenu = menu.filter(item =>
     item.category === selectedCategory &&
@@ -30,6 +80,7 @@ const Allmenu = () => {
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">All Menu Items</h1>
       <div className="mb-4">
+        <ToastContainer></ToastContainer>
         {categories.map(category => (
           <button
             key={category}
