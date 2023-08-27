@@ -11,6 +11,9 @@ import Allmenu from "../layout/Dashboard/Allmenu/Allmenu";
 import Editmenu from "../layout/Dashboard/EditMenu/Editmenu";
 import AllEmploy from "../layout/Dashboard/AllEmploy/AllEmploy";
 import EmplyEdidt from "../layout/Dashboard/EmplyEdidt/EmplyEdidt";
+import TodaysAttendance from "../layout/Dashboard/Attendance/TodaysAttendays/TodaysAttendance";
+import EmployeeAttendance from "../layout/Dashboard/Attendance/EmployeeAttendance/EmployeeAttendance";
+import AttendanceSheet from "../layout/Dashboard/Attendance/AttendanceSheet/AttendanceSheet";
 
 
 const router = createBrowserRouter([
@@ -71,6 +74,18 @@ const router = createBrowserRouter([
       {
         path: 'statistics',
         element: <Statistics />
+      },
+      {
+        path:"todays-attendance",
+        element:<TodaysAttendance/>
+      },
+      {
+        path:"employee-attendance",
+        element:<EmployeeAttendance/>
+      },
+      {
+        path:'attendance-sheet',
+        element:<AttendanceSheet/>
       }
     ],
   }
