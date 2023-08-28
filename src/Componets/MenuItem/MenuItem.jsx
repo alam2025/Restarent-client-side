@@ -5,7 +5,7 @@ import MenuData from '../../CustomHooks/MenuData/MenuData';
 
 const MenuItem = () => {
   const { menu, isLoading } = MenuData();
-  console.log(menu);
+
   if (isLoading) {
     return <span className="loading loading-spinner loading-lg text-center mx-auto"></span>;
   }

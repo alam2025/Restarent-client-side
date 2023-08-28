@@ -1,12 +1,36 @@
 import React from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import Statistics from './Statistics/Statistics';
 import Home from '../../HOme/Home/Home/Home';
+import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure to Exit?',
+
+
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Exit!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('user')
+        navigate('/')
+        location.reload()
+
+
+      }
+    })
+  }
   return (
     <>
       <div className="drawer lg:drawer-open ">
+
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col ">
           {/* Page content here */}
@@ -25,7 +49,7 @@ const Dashboard = () => {
             <li><NavLink to='allmenu'>All Menu</NavLink></li>
             <li><NavLink to='addemploy'>Add Emply</NavLink></li>
             <li><NavLink to='allemploy'>ALL Emply</NavLink></li>
-            <li><NavLink to='/'>Home</NavLink></li>
+
             <li>
               <details open>
                 <summary>Parent</summary>
@@ -33,10 +57,12 @@ const Dashboard = () => {
                   <li><NavLink to='todays-attendance'>Today Attendance</NavLink></li>
                   <li><NavLink to="employee-attendance">Employee Attendance</NavLink></li>
                   <li><NavLink to="attendance-sheet">Attendance Sheet</NavLink></li>
-                  
+
                 </ul>
               </details>
             </li>
+            <li><NavLink to='/'>Home</NavLink></li>
+            <li><button onClick={() => handleLogout()} className=''>LogOut</button ></li>
           </ul>
 
         </div>

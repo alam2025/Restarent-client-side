@@ -1,11 +1,13 @@
 import React from 'react';
-import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
+
 import { Link, NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
 
 const AllEmploy = () => {
-  const { employee, isLoading, refetch } = AllemployData();
-  console.log(employee);
+  // const { employee, isLoading, refetch } = AllemployData();
+  const {employee,isLoading,refetch}= AllemployData();
+  
 
   const onDelete = async (id) => {
       console.log(id)

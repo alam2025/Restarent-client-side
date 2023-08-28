@@ -28,11 +28,14 @@ const AuthoProvider = ({ children }) => {
             });
 
             const responseData = await res.json();
+          
+           
 
-            if (responseData && responseData.length > 0) {
-                  setUser(responseData[0]);
+            if (responseData ) {
+                  setUser(responseData);
+                
                   // Store user data in localStorage
-                  localStorage.setItem('user', JSON.stringify(responseData[0]));
+                  localStorage.setItem('user', JSON.stringify({id:responseData.id, name:responseData.name, role:responseData.role}));
             }
             else{
                   console.log(responseData);

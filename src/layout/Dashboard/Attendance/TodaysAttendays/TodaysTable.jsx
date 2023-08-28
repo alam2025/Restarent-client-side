@@ -1,107 +1,49 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
+import userTodayAttendance from '../../../../CustomHooks/TodayAttendance';
 
 const TodaysTable = () => {
+      const [todayAttendance,isTodayAttendance]= userTodayAttendance();
+      if(isTodayAttendance)return <h2>Loading ...</h2>
+      console.log(todayAttendance);
+
+      const indexedData = todayAttendance.map((row, index) => ({ ...row, index: index + 1 }));
       const columns = [
             {
+                  name: 'SI NO.',
+                  selector: row => row.index,
+                  sortable: true,
+            },
+            {
+                  name: 'ID',
+                  selector: row => row.id,
+                  sortable: true,
+            },
+            {
                   name: 'Name',
-                  selector: row => row.Name,
+                  selector: row => row.name,
                   sortable: true,
             },
             {
-                  name: 'First_In',
-                  selector: row => row.First_In,
+                  name: 'Date',
+                  selector: row => row.first_in.split("T")[0],
                   sortable: true,
             },
-            {
-                  name: 'Last_out',
-                  selector: row => row.Last_out,
-                  sortable: true,
-            },
-            {
-                  name: 'Total',
-                  selector: row => row.Total,
-                  sortable: true,
-            },
+           
             {
                   name: 'Status',
-                  selector: row => row.Status,
+                  selector: row => <p className=' text-green-500'>{row.status}</p>,
                   sortable: true,
             },
       ];
 
-      const data = [
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-            {
-                  Name: 1,
-                  First_In: 'Beetlejuice',
-                  Last_out: '1988',
-                  Total:12,
-                  Status:"Present"
-            },
-           
-      ]
+     
       return (
             <div>
                   <DataTable
                         columns={columns}
-                        data={data}
-                        selectableRows
+                        data={indexedData}
+                        
                         pagination
                   />
             </div>
