@@ -41,7 +41,7 @@ const OrderList = () => {
     // Handle cash payment logic
     console.log(`Accepting cash payment for order: ${orderId}`);
   };
-console.log(OrderList);
+console.log(order);
   return (
     <div className="p-6 w-full text-black">
       <h1 className="font-bold text-2xl p-3 text-center">Order List</h1>
