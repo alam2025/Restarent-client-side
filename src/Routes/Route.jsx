@@ -18,6 +18,7 @@ import Login from "../Login/Login";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "../Componets/SecureRoutes/AdminRoute/AdminRoute";
 import Report from "../layout/Dashboard/Report/Report";
+import Dashboard2 from "../layout/Dashboard/Dashboard2";
 
 
 const router = createBrowserRouter([
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
 
   {
     path: 'dashboard',
-    element: <PrivateRoute><Dashboard /></PrivateRoute>,
+    element: <PrivateRoute><Dashboard2 /></PrivateRoute>,
     children: [
       {
         path: '', // Empty path for the default child route

@@ -121,7 +121,7 @@ const OrderList = () => {
                   )}
                   {itemIndex === 0 && (
                     <td rowSpan={orders.length} className="border px-4 py-2">
-                      {orderItem.waytopayment == 'paypal' ? <button onClick={() => window.my_modal_1.showModal()} className='btn btn-sm shadow-2xl bg-yellow-50 hover:scale-50'>Paypal</button> : <button className='btn btn-sm shadow-2xl bg-yellow-50 hover:scale-50' onClick={() => handleClickCash('Close', orderItem.order_id)}>
+                      {orderItem.waytopayment == 'paypal' ? <button onClick={() => window.my_modal_1.showModal()} className='btn btn-sm shadow-2xl bg-yellow-50 '>Paypal</button> : <button className='btn btn-sm shadow-2xl bg-yellow-50 hover:scale-50' onClick={() => handleClickCash('Close', orderItem.order_id)}>
                         {buttonText}
                       </button>}
                     </td>
