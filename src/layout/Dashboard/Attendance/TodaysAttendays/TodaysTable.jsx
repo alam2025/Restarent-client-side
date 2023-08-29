@@ -5,7 +5,7 @@ import userTodayAttendance from '../../../../CustomHooks/TodayAttendance';
 const TodaysTable = () => {
       const [todayAttendance,isTodayAttendance]= userTodayAttendance();
       if(isTodayAttendance)return <h2>Loading ...</h2>
-      console.log(todayAttendance);
+     
 
       const indexedData = todayAttendance.map((row, index) => ({ ...row, index: index + 1 }));
       const columns = [

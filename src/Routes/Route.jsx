@@ -16,6 +16,8 @@ import EmployeeAttendance from "../layout/Dashboard/Attendance/EmployeeAttendanc
 import AttendanceSheet from "../layout/Dashboard/Attendance/AttendanceSheet/AttendanceSheet";
 import Login from "../Login/Login";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "../Componets/SecureRoutes/AdminRoute/AdminRoute";
+import Report from "../layout/Dashboard/Report/Report";
 
 
 const router = createBrowserRouter([
@@ -52,28 +54,28 @@ const router = createBrowserRouter([
       },
       {
         path: 'allmenu',
-        element: <Allmenu />
+        element: <AdminRoute><Allmenu /></AdminRoute>
       },
       {
         path: 'addmenu',
-        element: <AddMenu/>
+        element: <AdminRoute><AddMenu/></AdminRoute>
       },
       {
         path: 'addemploy',
-        element: <AddEmploy/>
+        element:<AdminRoute> <AddEmploy/></AdminRoute>
       },
       {
         path: 'edit/:id',
-        element: <Editmenu/>
+        element:<AdminRoute> <Editmenu/></AdminRoute>
       },
       {
         path: 'emplyedit/:id',
-        element: <EmplyEdidt/>
+        element: <AdminRoute><EmplyEdidt/></AdminRoute>
       },
       
       {
         path: 'allemploy',
-        element: <AllEmploy/>
+        element:<AdminRoute> <AllEmploy/></AdminRoute>
        
       },
       
@@ -82,16 +84,20 @@ const router = createBrowserRouter([
         element: <PrivateRoute><Statistics /></PrivateRoute>
       },
       {
+        path: 'report',
+        element: <PrivateRoute><Report /></PrivateRoute>
+      },
+      {
         path:"todays-attendance",
-        element:<TodaysAttendance/>
+        element:<AdminRoute><TodaysAttendance/></AdminRoute>
       },
       {
         path:"employee-attendance",
-        element:<EmployeeAttendance/>
+        element:<AdminRoute><EmployeeAttendance/></AdminRoute>
       },
       {
         path:'attendance-sheet',
-        element:<AttendanceSheet/>
+        element:<AdminRoute><AttendanceSheet/></AdminRoute>
       }
     ],
   }

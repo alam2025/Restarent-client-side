@@ -3,16 +3,21 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
+import useEmployee from '../../../CustomHooks/useEmployee';
+import useUrl from '../../../CustomHooks/URL/UseUrl';
 
 const AllEmploy = () => {
+ const [url]=useUrl()
   // const { employee, isLoading, refetch } = AllemployData();
   const {employee,isLoading,refetch}= AllemployData();
-  
+ if(isLoading){
+  return <h2>Loading...</h2>
+ }
 
   const onDelete = async (id) => {
       console.log(id)
       try {
-        const res = await fetch(`${url}/employees/${id}`, {
+        const res = await fetch(`${url}/employee/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -20,6 +25,7 @@ const AllEmploy = () => {
         });
     
         const responseData = await res.json();
+        console.log(responseData);
     
         if (responseData.deleted > 0) {
           toast.success(responseData.message, {

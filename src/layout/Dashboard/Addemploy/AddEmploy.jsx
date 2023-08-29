@@ -11,7 +11,7 @@ const AddEmploy = () => {
     role: '',
   });
 
-  const jobRoles = ['Waiter', 'Cook', 'Server', 'Bartender'];
+  const jobRoles = ['manager','Waiter', 'Cook', 'Server', 'Bartender'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;

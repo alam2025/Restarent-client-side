@@ -7,12 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 const EmplyEdidt = () => {
   const { id } = useParams();
   const { employee, isLoading, refetch } = AllemployData();
-  
+
   const [formData, setFormData] = useState({});
   const [employItem, setEmployItem] = useState(null);
 
   const jobRoles = ['Waiter', 'Cook', 'Server', 'Bartender'];
-const[url]=useUrl();
+  const [url] = useUrl();
   useEffect(() => {
     if (!isLoading) {
       const item = employee.find(item => item.id === id);
@@ -30,45 +30,33 @@ const[url]=useUrl();
   }, [id, employee, isLoading]);
 
   const handleFormSubmit = async (e) => {
-      e.preventDefault();
-    
-      try {
-        const res = await fetch(`${url}/employees/${id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+    e.preventDefault();
+
+    try {
+      const res = await fetch(`${url}/employee/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const responseData = await res.json();
+      
+
+      if (responseData.updated > 0) {
+        toast.success(responseData.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
         });
-    
-        const responseData = await res.json();
-    
-        if (responseData.updated > 0) {
-          toast.success(responseData.message, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
-        } else {
-          toast.error(responseData.message, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
-        }
-      } catch (error) {
-        console.error('Error while sending the request:', error);
-        toast.error('Error while sending the request. Please try again later.', {
+      } else {
+        toast.error(responseData.message, {
           position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
@@ -79,8 +67,21 @@ const[url]=useUrl();
           theme: 'light',
         });
       }
-    };
-    
+    } catch (error) {
+      console.error('Error while sending the request:', error);
+      toast.error('Error while sending the request. Please try again later.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+  };
+
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -129,7 +130,7 @@ const[url]=useUrl();
           </select>
 
           {/* Add more form fields here */}
-          
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
