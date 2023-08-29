@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Don't forget to import axios
+
 import useUrl from '../URL/UseUrl';
+import { useQuery } from '@tanstack/react-query';
 
-export const OrderData = () => {
-  const [order, setOrder] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-   const[url]=useUrl();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${url}/orders`);
-        setOrder(response.data);
-    
-        setIsLoading(false);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
+ const OrderData = () => {
+  const [url] = useUrl();
+  const { data: order = [], isLoading, refetch } = useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
+      const res = await fetch(`${url}/orders`)
+      return res.json()
+    }
+  })
 
-    fetchData();
-  }, []);
 
-  return { order, isLoading, error };
+  return { order, isLoading, refetch};
 };
+
+export default OrderData

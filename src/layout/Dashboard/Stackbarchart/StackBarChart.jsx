@@ -1,9 +1,14 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { OrderData } from '../../../CustomHooks/OrderData/OrderData';
+import OrderData from '../../../CustomHooks/OrderData/OrderData';
+import Loader from '../../../Componets/Loader';
+
 
 const StackBarChart = () => {
-  const { order } = OrderData();
+  const { order,isLoading } =OrderData();
+  if(isLoading){
+    return <Loader/>
+  }
 
   // Prepare data for the stacked bar chart
   const categoryData = {}; // Example: { "Category1": 100, "Category2": 200, ... }

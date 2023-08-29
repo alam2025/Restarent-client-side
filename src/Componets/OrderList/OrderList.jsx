@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-import { OrderData } from '../../CustomHooks/OrderData/OrderData';
+
 import Loader from '../Loader';
+import useUrl from '../../CustomHooks/URL/UseUrl';
+import OrderData from '../../CustomHooks/OrderData/OrderData';
+import { ToastContainer, toast } from 'react-toastify';
 
 const OrderList = () => {
-  const { order, isLoading, error } = OrderData();
+  const [url]=useUrl()
+const {order,isLoading,refetch}= OrderData();
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [buttonText, setButtontext] = useState('Cash')
   if (isLoading) {
     return <Loader/>
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  console.log(order);
+
+ 
 
   // Group orders by mobile number
   const groupedOrders = order.reduce((result, orderItem) => {
@@ -43,33 +47,56 @@ const OrderList = () => {
     console.log(`Accepting cash payment for order: ${orderId}`);
   };
   const handleClickCash = async (text, order_id) => {
-    console.log(text, order_id);
+   
 
     try {
       // Make an API call to update the button text based on order ID
-      const response = await fetch(`your-backend-api-url/updateButtonText/${order_id}`, {
-        method: 'PUT', // or 'POST' or 'PATCH' depending on your backend API
+      const response = await fetch(`${url}/orders/${order_id}`, {
+        method: 'PATCH', // or 'POST' or 'PATCH' depending on your backend API
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ buttonText: text }),
       });
+      const responseData=await response.json()
 
-      if (response.ok) {
+      if (responseData.updated) {
         // Update the button text with the data from the backend
         setButtontext(text);
-        console.log('Button text updated successfully');
+        refetch()
+        toast.success(responseData.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          
+    });
       } else {
-        console.error('Failed to update button text');
+        toast.error(responseData.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          
+    });
       }
     } catch (error) {
       console.error('Error updating button text:', error);
     }
 
   };
-  console.log(order);
+  
   return (
     <div className="p-6 w-full text-black">
+      <ToastContainer/>
       <h1 className="font-bold text-2xl p-3 text-center">Order List</h1>
       <hr />
       <br></br>
@@ -121,13 +148,14 @@ const OrderList = () => {
                   )}
                   {itemIndex === 0 && (
                     <td rowSpan={orders.length} className="border px-4 py-2">
-                      {orderItem.waytopayment == 'paypal' ? <button onClick={() => window.my_modal_1.showModal()} className='btn btn-sm shadow-2xl bg-yellow-50 '>Paypal</button> : <button className='btn btn-sm shadow-2xl bg-yellow-50 hover:scale-50' onClick={() => handleClickCash('Close', orderItem.order_id)}>
-                        {buttonText}
+                      {orderItem.waytopayment == 'paypal' ? <button onClick={() => window.my_modal_1.showModal()} className='btn btn-sm shadow-2xl bg-yellow-50 '>Paypal</button> : <button className='btn btn-sm shadow-2xl bg-yellow-50 ' disabled={orderItem.waytopayment =="Close"} onClick={() => handleClickCash('Close', orderItem.order_id)}>
+                        {orderItem.waytopayment || 'Cash'}
                       </button>}
                     </td>
                   )}
                 </tr>
               ))}
+
               {orders.map((orderItem, itemIndex) => (
                 <tr key={itemIndex}>
                   {itemIndex === 0 && (
@@ -143,6 +171,7 @@ const OrderList = () => {
                         Credit
                       </button>
                       <button
+                      
                         onClick={() => handleCashPayment(orderItem.order_id)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
                       >

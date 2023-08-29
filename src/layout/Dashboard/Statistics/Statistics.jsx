@@ -1,18 +1,17 @@
 import React from 'react';
-import { OrderData } from '../../../CustomHooks/OrderData/OrderData';
+
 import StackBarChart from '../Stackbarchart/StackBarChart';
 import Loader from '../../../Componets/Loader';
+import OrderData from '../../../CustomHooks/OrderData/OrderData';
 
 const Statistics = () => {
-  const { order, isLoading, error, groupedOrders } = OrderData();
+  const { order, isLoading } = OrderData();
 
   if (isLoading) {
     return <Loader/>
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  
 
   // Calculate statistics
   const totalCustomer = new Set(order.map(item => item.name)).size;
