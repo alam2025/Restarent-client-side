@@ -14,11 +14,19 @@ const Userorder = () => {
       const [url] = useUrl();
 
       const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
+      const [formData, setFormData] = useState();
+      const jobRoles = ['paypal','cash', ];
+      
+  const handleChange = (e) => {
+      const { name, value } = e.target;
+      // setFormData((prevData) => ({ ...prevData, [name]: value }));
+      console.log(e.target.value)
+      setFormData(e.target.value)
+    };
       useEffect(() => {
             const data = getShoppingCart();
             
-      //  console.log(data)
+       console.log(data)
             if (Array.isArray(data)) {
                   setOrderData(data);
                   const total = data.reduce((total, orderItem) => {
@@ -30,19 +38,21 @@ const Userorder = () => {
             }
       }, []);
 
-      // console.log(total)
+      console.log(total)
 
       const onSubmit = async (data, e) => {
             e.preventDefault();
-
+ console.log(formData)
             const orderItem = {
                   name: data.name,
                   mobile: data.mobile,
                   orderdata_array: orderdata,
                   total: total,
+                  wayToPayment:formData,
+                  
             };
 
-      //      console.log(orderItem)
+           console.log(orderItem)
 
             try {
                   const res = await fetch(`${url}/orderItem`, {
@@ -174,6 +184,21 @@ const Userorder = () => {
                               />
                               {errors.mobile && <span className="text-red-500 text-xs">Mobile is required</span>}
                         </label>
+                        <div className="mb-4">
+            <label className="block text-sm font-semibold mb-1">Way To purchase</label>
+            <select
+              name="role"
+              className="w-full border border-gray-300 bg-white text-black focus:ring focus:ring-blue-300 px-3 py-2 rounded"
+              value={formData}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>Select payment method</option>
+              {jobRoles.map((role, index) => (
+                <option key={index} value={role}>{role}</option>
+              ))}
+            </select>
+          </div>
                         <button
                               className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300 w-full"
                               type="submit"

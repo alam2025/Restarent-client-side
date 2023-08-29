@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import Statistics from './Statistics/Statistics';
 import Home from '../../HOme/Home/Home/Home';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import useAdmin from '../../CustomHooks/UseAdmin';
+import { AuthContext } from '../../providers/AuthoProvider';
 
 const Dashboard = () => {
   const [isAdmin, isAdminLoading] = useAdmin();
   const navigate = useNavigate();
-
+  const{authInfo} =useState(AuthContext);
+  console.log(authInfo)
   if (isAdminLoading) {
     return <h2>Loading..</h2>
   }
