@@ -2,14 +2,11 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 
 const ReportTable = ({ report }) => {
+      
       const columns = [
-            // {
-            //       name: 'SI NO.',
-            //       selector: row => row.index,
-            //       sortable: true,
-            // },
+            
             {
-                  name: 'Orde ID',
+                  name: 'Order ID',
                   selector: row => row.order_id,
                   sortable: true,
             },

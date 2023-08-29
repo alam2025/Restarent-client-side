@@ -5,17 +5,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
 import useEmployee from '../../../CustomHooks/useEmployee';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
+import Loader from '../../../Componets/Loader';
 
 const AllEmploy = () => {
  const [url]=useUrl()
   // const { employee, isLoading, refetch } = AllemployData();
   const {employee,isLoading,refetch}= AllemployData();
  if(isLoading){
-  return <h2>Loading...</h2>
+  return <Loader/>
  }
 
   const onDelete = async (id) => {
-      console.log(id)
+     
       try {
         const res = await fetch(`${url}/employee/${id}`, {
           method: 'DELETE',

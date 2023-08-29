@@ -5,15 +5,17 @@ import MenuItem from '../../../Componets/MenuItem/MenuItem';
 import Navbar from '../../../Componets/Shared/Navbar/Navbar';
 import { ToastContainer } from 'react-toastify';
 import MenuData from '../../../CustomHooks/MenuData/MenuData';
-
+import ScaleLoader from "react-spinners/ScaleLoader";
+import Loader from '../../../Componets/Loader';
 const Home = () => {
       const { menu,isLoading } = MenuData();
       if(isLoading){
-            return <h2>Loading ..</h2>
+            return <Loader/>
       }
       
       return (
             <div>
+                  
                    <ToastContainer/>
                   <Navbar></Navbar>
                   <MenuItem></MenuItem>

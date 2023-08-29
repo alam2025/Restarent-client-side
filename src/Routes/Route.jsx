@@ -13,7 +13,7 @@ import AllEmploy from "../layout/Dashboard/AllEmploy/AllEmploy";
 import EmplyEdidt from "../layout/Dashboard/EmplyEdidt/EmplyEdidt";
 import TodaysAttendance from "../layout/Dashboard/Attendance/TodaysAttendays/TodaysAttendance";
 import EmployeeAttendance from "../layout/Dashboard/Attendance/EmployeeAttendance/EmployeeAttendance";
-import AttendanceSheet from "../layout/Dashboard/Attendance/AttendanceSheet/AttendanceSheet";
+
 import Login from "../Login/Login";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "../Componets/SecureRoutes/AdminRoute/AdminRoute";
@@ -95,10 +95,7 @@ const router = createBrowserRouter([
         path:"employee-attendance",
         element:<AdminRoute><EmployeeAttendance/></AdminRoute>
       },
-      {
-        path:'attendance-sheet',
-        element:<AdminRoute><AttendanceSheet/></AdminRoute>
-      }
+      
     ],
   }
 

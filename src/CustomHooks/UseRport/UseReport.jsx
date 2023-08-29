@@ -7,12 +7,13 @@ const UseReport = () => {
  
 
   const { data: report = [], isLoading: isReportLoading } = useQuery({
-    queryKey: ['admin'],
+    queryKey: ['report'],
     queryFn: async () => {
       const res = await fetch(`${url}/today-report`);
       return res.json();
     }
   });
+
 
   return { report,isReportLoading };
 };

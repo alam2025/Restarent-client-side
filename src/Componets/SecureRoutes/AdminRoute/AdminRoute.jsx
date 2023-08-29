@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import useAdmin from '../../../CustomHooks/UseAdmin';
 import { AuthContext } from '../../../providers/AuthoProvider';
+import Loader from '../../Loader';
 
 
 
@@ -16,10 +17,7 @@ const AdminRoute = ({children}) => {
      
       
       if(loading || isAdminLoading){
-            return  <><progress className="progress progress-accent w-56" value="0" max="100"></progress>
-            <progress className="progress progress-accent w-56" value="10" max="100"></progress>
-            <progress className="progress progress-accent w-56" value="40" max="100"></progress>
-           </>
+            return  <Loader/>
       }
 
     

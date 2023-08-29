@@ -1,10 +1,11 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import userTodayAttendance from '../../../../CustomHooks/TodayAttendance';
+import Loader from '../../../../Componets/Loader';
 
 const TodaysTable = () => {
       const [todayAttendance,isTodayAttendance]= userTodayAttendance();
-      if(isTodayAttendance)return <h2>Loading ...</h2>
+      if(isTodayAttendance)return <Loader/>
      
 
       const indexedData = todayAttendance.map((row, index) => ({ ...row, index: index + 1 }));
