@@ -193,10 +193,12 @@ const Userorder = () => {
               onChange={handleChange}
               required
             >
-              <option value="" disabled>Select payment method</option>
+                  <option value="cash" >cash</option>
+                  <option value="paypal" >paypal</option>
+              {/* <option value="" disabled>Select payment method</option>
               {jobRoles.map((role, index) => (
                 <option key={index} value={role}>{role}</option>
-              ))}
+              ))} */}
             </select>
           </div>
                         <button
