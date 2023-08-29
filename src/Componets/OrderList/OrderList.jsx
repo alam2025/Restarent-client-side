@@ -4,7 +4,7 @@ import { OrderData } from '../../CustomHooks/OrderData/OrderData';
 const OrderList = () => {
   const { order, isLoading, error } = OrderData();
   const [expandedOrderId, setExpandedOrderId] = useState(null);
-
+  const [buttonText, setButtontext] = useState('Cash')
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -41,7 +41,32 @@ const OrderList = () => {
     // Handle cash payment logic
     console.log(`Accepting cash payment for order: ${orderId}`);
   };
-console.log(order);
+  const handleClickCash = async (text, order_id) => {
+    console.log(text, order_id);
+
+    try {
+      // Make an API call to update the button text based on order ID
+      const response = await fetch(`your-backend-api-url/updateButtonText/${order_id}`, {
+        method: 'PUT', // or 'POST' or 'PATCH' depending on your backend API
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ buttonText: text }),
+      });
+
+      if (response.ok) {
+        // Update the button text with the data from the backend
+        setButtontext(text);
+        console.log('Button text updated successfully');
+      } else {
+        console.error('Failed to update button text');
+      }
+    } catch (error) {
+      console.error('Error updating button text:', error);
+    }
+
+  };
+  console.log(order);
   return (
     <div className="p-6 w-full text-black">
       <h1 className="font-bold text-2xl p-3 text-center">Order List</h1>
@@ -78,13 +103,13 @@ console.log(order);
                   )}
                   <td className="border px-4 py-2">{orderItem.order_id}</td>
                   <td className="border px-4 py-2"><ul>
-                    
-                      {orderItem.items[0].food_id}
-                    
-                    
-                    </ul>
-                    
-                    </td>
+
+                    {orderItem.items[0].food_id}
+
+
+                  </ul>
+
+                  </td>
                   <td className="border px-4 py-2">{orderItem.items[0].food_name}</td>
                   <td className="border px-4 py-2">{orderItem.items[0].food_price}</td>
                   <td className="border px-4 py-2">{orderItem.items[0].quantity}</td>
@@ -95,12 +120,9 @@ console.log(order);
                   )}
                   {itemIndex === 0 && (
                     <td rowSpan={orders.length} className="border px-4 py-2">
-                      <button
-                        onClick={() => handleActionClick(orderItem.order_id)}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
-                      >
-                        {expandedOrderId === orderItem.order_id ? 'Close' : 'Way to purchase'}
-                      </button>
+                      {orderItem.waytopayment == 'paypal' ? <button onClick={() => window.my_modal_1.showModal()} className='btn btn-sm shadow-2xl bg-yellow-50 hover:scale-50'>Paypal</button> : <button className='btn btn-sm shadow-2xl bg-yellow-50 hover:scale-50' onClick={() => handleClickCash('Close', orderItem.order_id)}>
+                        {buttonText}
+                      </button>}
                     </td>
                   )}
                 </tr>
@@ -110,9 +132,8 @@ console.log(order);
                   {itemIndex === 0 && (
                     <td
                       rowSpan={orders.length}
-                      className={`border px-4 py-2 ${
-                        expandedOrderId === orderItem.order_id ? 'block' : 'hidden'
-                      }`}
+                      className={`border px-4 py-2 ${expandedOrderId === orderItem.order_id ? 'block' : 'hidden'
+                        }`}
                     >
                       <button
                         onClick={() => handleOnlinePayment(orderItem.order_id)}
@@ -134,6 +155,35 @@ console.log(order);
           ))}
         </tbody>
       </table>
+      <dialog id="my_modal_1" className="modal">
+        <form method="dialog" className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">Press ESC key or click the button below to close</p>
+
+          <label htmlFor="customerName" className="block mb-2">Customer Name:</label>
+          <input
+            type="text"
+            id="customerName"
+            name="customerName"
+            className="border rounded px-2 py-1 w-full mb-4"
+            required
+          />
+
+          <label htmlFor="phoneNumber" className="block mb-2">Phone Number:</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            name="phoneNumber"
+            className="border rounded px-2 py-1 w-full mb-4"
+            required
+          />
+
+          <div className="modal-action">
+            <button className="btn btn-sm font-bold uppercase bg-red-600 text-white">X</button>
+          </div>
+        </form>
+      </dialog>
+
     </div>
   );
 };
