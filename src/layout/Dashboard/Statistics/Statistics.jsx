@@ -1,12 +1,13 @@
 import React from 'react';
 import { OrderData } from '../../../CustomHooks/OrderData/OrderData';
 import StackBarChart from '../Stackbarchart/StackBarChart';
+import Loader from '../../../Componets/Loader';
 
 const Statistics = () => {
   const { order, isLoading, error, groupedOrders } = OrderData();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader/>
   }
 
   if (error) {

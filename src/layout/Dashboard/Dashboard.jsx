@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import useAdmin from '../../CustomHooks/UseAdmin';
 import { AuthContext } from '../../providers/AuthoProvider';
+import Loader from '../../Componets/Loader';
 
 const Dashboard = () => {
 
@@ -16,7 +17,7 @@ const Dashboard = () => {
   const [open, setOpen] = useState('Open');
 
   if (isAdminLoading || loading) {
-    return <h2>Loading..</h2>
+    return <Loader/>
   }
   console.log(user)
   const handleLogout = () => {
@@ -67,7 +68,7 @@ const Dashboard = () => {
               <p className='text-center p-2'>{user.role}</p>
 
             </div>
-            <div className='my-10'>
+            <div className='mt-4'>
               < hr />
             </div>
 
@@ -88,14 +89,14 @@ const Dashboard = () => {
                     <ul>
                       <li><NavLink to='todays-attendance'>Today Attendance</NavLink></li>
                       <li><NavLink to="employee-attendance">Employee Attendance</NavLink></li>
-                      <li><NavLink to="attendance-sheet">Attendance Sheet</NavLink></li>
+                    
 
                     </ul>
                   </details>
                 </li>
               </>
             }
-            <div className='my-6'>
+            <div className='mt-4'>
               < hr />
             </div>
 

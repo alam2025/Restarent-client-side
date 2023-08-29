@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { OrderData } from '../../CustomHooks/OrderData/OrderData';
+import Loader from '../Loader';
 
 const OrderList = () => {
   const { order, isLoading, error } = OrderData();
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [buttonText, setButtontext] = useState('Cash')
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader/>
   }
 
   if (error) {

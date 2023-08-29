@@ -3,10 +3,13 @@ import MenuData  from '../../../CustomHooks/MenuData/MenuData';
 import { Link } from 'react-router-dom';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import { ToastContainer, toast } from 'react-toastify';
+import Loader from '../../../Componets/Loader';
 
 const Allmenu = () => {
   const { menu,isLoading,refetch } = MenuData();
   const[url]=useUrl();
+
+  
   const categories = [...new Set(menu.map(item => item.category))];
 
   const [selectedCategory, setSelectedCategory] = useState('salad');

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import MenuData  from '../../../CustomHooks/MenuData/MenuData';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import { ToastContainer, toast } from 'react-toastify';
+import Loader from '../../../Componets/Loader';
 
 const Editmenu = () => {
   const [url] = useUrl()
@@ -14,7 +15,7 @@ const Editmenu = () => {
   const menuItem = menu.find(item => item.id === parseInt(id, 10));
 
   if (!menuItem) {
-    return <h2>Loading....</h2>
+    return <Loader/>
   }
 
   const { name, image, category, recipe, price } = menuItem;
