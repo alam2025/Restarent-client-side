@@ -72,6 +72,7 @@ const AllEmploy = () => {
 
   return (
     <div className='w-full p-4'>
+       <h1 className="text-2xl text-center font-bold mb-4">All Menu Items</h1>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

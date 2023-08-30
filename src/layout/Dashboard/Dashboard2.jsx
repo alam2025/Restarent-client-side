@@ -44,7 +44,7 @@ const Dashboard2 = () => {
                   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                   <div className="drawer-content flex flex-col items-center justify-center">
                         {/* Page content here */}
-                       <div className=' absolute left-10 top-5'>
+                       <div className=' absolute left-5 top-3 '>
                        <label htmlFor="my-drawer-2" className="drawer-button cursor-pointer lg:hidden  "><VscThreeBars size={40}/></label>
                        </div>
                         <Outlet />

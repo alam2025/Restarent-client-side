@@ -96,6 +96,7 @@ const {order,isLoading,refetch}= OrderData();
   
   return (
     <div className="p-6 w-full text-black">
+      
       <ToastContainer/>
       <h1 className="font-bold text-2xl p-3 text-center">Order List</h1>
       <hr />
@@ -208,9 +209,7 @@ const {order,isLoading,refetch}= OrderData();
             required
           />
 
-          <div className="modal-action">
-            <button className="btn btn-sm font-bold uppercase bg-red-600 text-white">X</button>
-          </div>
+          
         </form>
       </dialog>
 
