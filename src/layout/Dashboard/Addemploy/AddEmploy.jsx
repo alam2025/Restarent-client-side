@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const AddEmploy = () => {
   const [url]=useUrl();
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,7 +56,6 @@ const AddEmploy = () => {
 
 
 
-
       } else {
         toast.error(responseData.message, {
           position: "top-right",
@@ -79,9 +81,12 @@ const AddEmploy = () => {
         theme: "light",
       });
     }
+    
+  
   };
 
   return (
+  <>
     <div className="flex w-full justify-center items-center text-amber-100  m-3 mx-auto p-4">
       <div className="w-full font-bold   p-6 rounded shadow-2xl bg-gray-800 ">
         <ToastContainer/>
@@ -153,7 +158,16 @@ const AddEmploy = () => {
           </div>
         </form>
       </div>
+      
     </div>
+    <Link to="/dashboard">
+                              <button
+                                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300"
+                              >
+                                    {'<----'} Back
+                              </button>
+                        </Link>
+  </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MenuData  from '../../../CustomHooks/MenuData/MenuData';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import Loader from '../../../Componets/Loader';
@@ -9,7 +9,7 @@ const Allmenu = () => {
   const { menu,isLoading,refetch } = MenuData();
   const[url]=useUrl();
 
-  
+  const    navigate=useNavigate();
   const categories = [...new Set(menu.map(item => item.category))];
 
   const [selectedCategory, setSelectedCategory] = useState('salad');
@@ -45,6 +45,7 @@ const Allmenu = () => {
         });
         console.log('Item deleted:', itemToDelete.id);
         refetch();
+      
         // You can update your UI or fetch updated menu data here
       } else {
         const errorData = await response.json();

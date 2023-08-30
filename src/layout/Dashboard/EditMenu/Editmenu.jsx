@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useOutlet, useParams } from 'react-router-dom';
+import { useNavigate, useOutlet, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import MenuData  from '../../../CustomHooks/MenuData/MenuData';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
@@ -11,7 +11,7 @@ const Editmenu = () => {
   const { id } = useParams();
   const { menu } = MenuData();
   const { register, handleSubmit } = useForm();
-
+  const navigate=useNavigate();
   const menuItem = menu.find(item => item.id === parseInt(id, 10));
 
   if (!menuItem) {
@@ -50,7 +50,8 @@ const Editmenu = () => {
         });
         // deleteShoppingCart();
 
-
+        // navigate('/dashboard');
+        // navigate('/dashboard/allmenu');
 
 
 

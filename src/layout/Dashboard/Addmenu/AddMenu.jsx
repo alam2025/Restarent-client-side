@@ -4,6 +4,7 @@ import useUrl from '../../../CustomHooks/URL/UseUrl';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const AddMenu = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -39,7 +40,7 @@ const AddMenu = () => {
             });
             // deleteShoppingCart();
 
-        
+            // navigate('/dashboard');
             
         
            
@@ -74,6 +75,7 @@ const AddMenu = () => {
   const categoryOptions = ['dessert', 'soup', 'salad', 'pizza', 'drinks'];
 
   return (
+   <>
     <div className="w-full flex justify-center items-center bg-gray-100">
       <div className="w-full bg-white p-6 rounded shadow-md">
         <h1 className="text-2xl font-bold mb-4 text-center">Add New Menu Item</h1>
@@ -125,7 +127,18 @@ const AddMenu = () => {
           </div>
         </form>
       </div>
+    
     </div>
+  <div className='mt-10'>
+  <Link to="/dashboard">
+                              <button
+                                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300"
+                              >
+                                    {'<----'} Back
+                              </button>
+                        </Link>
+  </div>
+   </>
   );
 };
 
