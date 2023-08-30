@@ -3,7 +3,7 @@ import App from "../App";
 import Home from "../HOme/Home/Home/Home";
 import OrderList from "../Componets/OrderList/OrderList";
 import Userorder from "../Componets/MenuItem/UserOrder/Userorder";
-import Dashboard from "../layout/Dashboard/Dashboard";
+
 import Statistics from "../layout/Dashboard/Statistics/Statistics";
 import AddMenu from "../layout/Dashboard/Addmenu/AddMenu";
 import AddEmploy from "../layout/Dashboard/Addemploy/AddEmploy";
@@ -19,6 +19,8 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "../Componets/SecureRoutes/AdminRoute/AdminRoute";
 import Report from "../layout/Dashboard/Report/Report";
 import Dashboard2 from "../layout/Dashboard/Dashboard2";
+
+
 
 
 const router = createBrowserRouter([

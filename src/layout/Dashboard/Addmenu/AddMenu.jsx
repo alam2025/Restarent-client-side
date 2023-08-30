@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const AddMenu = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate=useNavigate();
   const[url]=useUrl();
   const onSubmit = async (data) => {
     console.log(data);
@@ -37,7 +39,7 @@ const AddMenu = () => {
             });
             // deleteShoppingCart();
 
-           
+        
             
         
            
