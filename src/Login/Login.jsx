@@ -51,7 +51,7 @@ const Login = () => {
                                                       <span className="label-text">User ID</span>
                                                 </label>
                                                 <input type="text" placeholder="Enter your ID" className="input input-bordered"
-                                                      {...register("id", { required: "ID is required" })}
+                                                      {...register("id", { required: "ID is required" })} defaultValue={'111'}
                                                 />
                                                 {errors.id && <p className="text-red-500 mt-1">{errors.id.message}</p>}
                                           </div>

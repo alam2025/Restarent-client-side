@@ -10,7 +10,7 @@ import { useContext, useState } from 'react';
 const Dashboard2 = () => {
       const [isAdmin, isAdminLoading] = useAdmin();
       const navigate = useNavigate();
-      
+
       const { user, loading } = useContext(AuthContext)
       const [open, setOpen] = useState('Open');
 
@@ -44,9 +44,9 @@ const Dashboard2 = () => {
                   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                   <div className="drawer-content flex flex-col items-center justify-center">
                         {/* Page content here */}
-                       <div className=' absolute left-10 top-5'>
-                       <label htmlFor="my-drawer-2" className="drawer-button cursor-pointer lg:hidden  "><VscThreeBars size={40}/></label>
-                       </div>
+                        <div className=' absolute left-10 top-5'>
+                              <label htmlFor="my-drawer-2" className="drawer-button cursor-pointer lg:hidden  "><VscThreeBars size={40} /></label>
+                        </div>
                         <Outlet />
 
                   </div>
@@ -65,21 +65,21 @@ const Dashboard2 = () => {
 
 
                               {/* Sidebar content here */}
-                              <li><NavLink className={ 'text-lg font-semibold'} to='statistics'>Statistics</NavLink></li>
-                              <li><NavLink className={ 'text-lg font-semibold'}  to='allorder'>OrderList</NavLink></li>
+                              <li><NavLink className={'text-lg font-semibold'} to='statistics'>Statistics</NavLink></li>
+                              <li><NavLink className={'text-lg font-semibold'} to='allorder'>OrderList</NavLink></li>
                               {
                                     isAdmin && <>
-                                          <li><NavLink className={ 'text-lg font-semibold'}   to='addmenu'>Add Menu</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='allmenu'>All Menu</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='addemploy'>Add Employee</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='allemploy'>ALL Employee</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='report'>Sales Report</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='addmenu'>Add Menu</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='allmenu'>All Menu</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='addemploy'>Add Employee</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='allemploy'>ALL Employee</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='report'>Sales Report</NavLink></li>
                                           <li>
                                                 <details open>
-                                                      <summary className={ 'text-lg font-semibold'} >Parent</summary>
+                                                      <summary className={'text-lg font-semibold'} >Attendance</summary>
                                                       <ul>
-                                                            <li><NavLink className={ 'text-lg font-semibold'}  to='todays-attendance'>Today Attendance</NavLink></li>
-                                                            <li><NavLink className={ 'text-lg font-semibold'} to="employee-attendance">Employee Attendance</NavLink></li>
+                                                            <li><NavLink className={'text-lg font-semibold'} to='todays-attendance'>Today Attendance</NavLink></li>
+                                                            <li><NavLink className={'text-lg font-semibold'} to="employee-attendance">Employee Attendance</NavLink></li>
 
 
                                                       </ul>
@@ -91,8 +91,8 @@ const Dashboard2 = () => {
                                     < hr />
                               </div>
 
-                              <li><NavLink className={ 'text-lg font-semibold'}  to='/'>Home</NavLink></li>
-                              <li><button onClick={() => handleLogout()} className={ 'text-lg font-semibold mb-10'} >LogOut</button ></li>
+                              <li><NavLink className={'text-lg font-semibold'} to='/'>Home</NavLink></li>
+                              <li><button onClick={() => handleLogout()} className={'text-lg font-semibold mb-10'} >LogOut</button ></li>
                         </ul>
 
                   </div>
