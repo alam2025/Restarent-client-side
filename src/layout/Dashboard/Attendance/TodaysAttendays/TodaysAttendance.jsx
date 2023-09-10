@@ -4,8 +4,8 @@ import TodaysTable from './TodaysTable';
 const TodaysAttendance = () => {
       return (
             <div>
-                  <div className=' shadow-md px-10 flex py-6 items-center justify-between'>
-                        <h1 className=' text-2xl font-bold  '>Today Attendance</h1>
+                  <div className=' shadow-md px-10 flex py-6 items-center justify-center'>
+                        <h1 className=' text-2xl font-bold  text-center '>Today Attendance</h1>
                         
                   </div>
 

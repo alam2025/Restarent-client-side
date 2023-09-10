@@ -9,13 +9,13 @@ const Login = () => {
       const navigate = useNavigate()
       const location = useLocation()
       const { handleSubmit, register, formState: { errors } } = useForm();
-    
+
       const from = location.state?.from?.pathname || '/'
 
       const onSubmit = (data) => {
             login(data.id)
                   .then((r) => {
-                       
+
                         navigate(from, { replace: true })
                   })
                   .catch(err => {
@@ -35,7 +35,16 @@ const Login = () => {
       return (
 
             <div>
-                  <div className='py-6 shadow-md'>
+                  <div className='py-6 shadow-md flex justify-around'>
+                        <div className='flex items-center justify-center'>
+                              <Link to="/">
+                                    <button
+                                          className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300"
+                                    >
+                                          {'<----'} Back
+                                    </button>
+                              </Link>
+                        </div>
                         <h2 className=' text-3xl font-bold text-center'>Welcome to X</h2>
                   </div>
                   <div className="hero  ">
@@ -63,15 +72,7 @@ const Login = () => {
                               </div>
                         </div>
                   </div>
-            <div className='flex items-center justify-center'>
-            <Link to="/">
-                              <button
-                                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300"
-                              >
-                                    {'<----'} Back
-                              </button>
-                        </Link>
-            </div>
+
             </div>
       );
 };

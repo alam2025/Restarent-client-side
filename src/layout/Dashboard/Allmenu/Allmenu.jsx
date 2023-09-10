@@ -82,7 +82,7 @@ const Allmenu = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">All Menu Items</h1>
+      <h1 className="text-2xl text-center font-bold mb-4">All Menu Items</h1>
       <div className="mb-4">
         <ToastContainer></ToastContainer>
         {categories.map(category => (
