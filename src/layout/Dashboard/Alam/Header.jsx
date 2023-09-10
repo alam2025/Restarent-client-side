@@ -48,13 +48,13 @@ function Header() {
       };
 
       return (
-            <header className={`p-4 fixed w-full px-[10%]   mx-auto z-10 top-0 bg-white min-h-[100px] shadow-lg ${menuOpen ? 'menu-open' : 'menu-close'}`}>
-                  <div className="publicContainer mx-auto">
+            <header className={` fixed w-full px-[10%] h-[100px]    mx-auto z-10 top-0 bg-white shadow-lg ${menuOpen ? 'menu-open' : 'menu-close'}`}>
+                  <div className=" mx-auto py-8">
                         <div className="container mx-auto flex justify-between">
                               {/* Company Logo */}
                               <Link to="/">
                                     <h1 className=" font-bold text-lg ">
-                                          Restuarent Menu card
+                                          Restuarent
                                     </h1>
                               </Link>
 
@@ -104,17 +104,18 @@ function Header() {
                                           {/* <li><NavLink className={'text-lg font-semibold'} to='allorder'>OrderList</NavLink></li> */}
                                           {
                                                 isAdmin && <>
-                                                      
+
                                                       <li >
                                                             <div className="dropdown dropdown-hover">
-                                                                  <label tabIndex={0} className="text-lg font-semibold flex gap-2 items-center">Menu <IoIosArrowDown/></label>
+                                                                  <label tabIndex={0} className="text-lg font-semibold flex gap-2 items-center">Menu <IoIosArrowDown /></label>
                                                                   <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                                                         <li><NavLink to='allmenu'>Items</NavLink></li>
-                                                                        <li><a>Categories</a></li>
+                                                                        <li> <NavLink to='all-categories'>Categories</NavLink></li>
                                                                   </ul>
                                                             </div>
                                                       </li>
-                                                     
+                                                      <li><NavLink to='allorder' className={'text-lg font-semibold'}>Order List</NavLink></li>
+
                                                       <li><NavLink className={'text-lg font-semibold'} to='allemploy'> Employees</NavLink></li>
                                                       <li><NavLink className={'text-lg font-semibold'} to='report'>Report</NavLink></li>
                                                       <li>
@@ -128,6 +129,17 @@ function Header() {
 
                                                       </ul> */}
 
+
+
+                                                      </li>
+                                                      <li>
+                                                            <div className="dropdown dropdown-hover">
+                                                                  <label tabIndex={0} className="text-lg font-semibold flex gap-2 items-center">Attendance <IoIosArrowDown /></label>
+                                                                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                                        <li><NavLink to='todays-attendance'>Present employees</NavLink></li>
+                                                                        <li> <NavLink to='personal-attendance'>Personal attendance</NavLink></li>
+                                                                  </ul>
+                                                            </div>
                                                       </li>
                                                 </>
                                           }
@@ -141,27 +153,54 @@ function Header() {
 
                               </nav>
                         </div>
-                        <nav className={`lg:hidden ${menuOpen ? 'block' : 'hidden'} flex flex-col gap-4 p-4`}>
+                        <nav className={`lg:hidden ${menuOpen ? 'block' : 'hidden'} z-10 bg-white shadow-xl absolute left-0 px-10 top-20 flex flex-col gap-4 p-4`}>
                               {menuOpen && (
-                                    <ul className="">
+                                    <ul className=" ">
+
                                           <li><NavLink className={'text-lg font-semibold'} to='statistics'>Statistics</NavLink></li>
-                                          <li><NavLink className={'text-lg font-semibold'} to='allorder'>OrderList</NavLink></li>
+                                          {/* <li><NavLink className={'text-lg font-semibold'} to='allorder'>OrderList</NavLink></li> */}
                                           {
                                                 isAdmin && <>
-                                                      <li><NavLink className={'text-lg font-semibold'} to='addmenu'>Add Menu</NavLink></li>
-                                                      <li><NavLink className={'text-lg font-semibold'} to='allmenu'>All Menu</NavLink></li>
-                                                      <li><NavLink className={'text-lg font-semibold'} to='addemploy'>Add Employee</NavLink></li>
-                                                      <li><NavLink className={'text-lg font-semibold'} to='allemploy'>ALL Employee</NavLink></li>
-                                                      <li><NavLink className={'text-lg font-semibold'} to='report'>Sales Report</NavLink></li>
+
+                                                      <li >
+                                                            <div className="dropdown dropdown-hover">
+                                                                  <label tabIndex={0} className="text-lg font-semibold flex gap-2 items-center">Menu <IoIosArrowDown /></label>
+                                                                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                                        <li><NavLink to='allmenu'>Items</NavLink></li>
+                                                                        <li> <NavLink to='all-categories'>Categories</NavLink></li>
+                                                                  </ul>
+                                                            </div>
+                                                      </li>
+                                                      <li><NavLink to='allorder' className={'text-lg font-semibold'}>Order List</NavLink></li>
+
+                                                      <li><NavLink className={'text-lg font-semibold'} to='allemploy'> Employees</NavLink></li>
+                                                      <li><NavLink className={'text-lg font-semibold'} to='report'>Report</NavLink></li>
+                                                      <li>
+
+                                                            <li><NavLink className={'text-lg font-semibold'} to='todays-attendance'>Attendance</NavLink></li>
 
 
 
-                                                      <li><NavLink className={'text-lg font-semibold'} to='todays-attendance'> Attendance</NavLink></li>
-                                                      {/* <li><NavLink className={'text-lg font-semibold'} to="employee-attendance">Employee Attendance</NavLink></li> */}
 
 
+                                                      </li>
+                                                      {/* <li><details className="dropdown mb-32">
+                                                              <summary className={'text-lg font-semibold'} >Attendance</summary>
+                                                              <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                                              <li><NavLink className={''} to='todays-attendance'> Present employees</NavLink></li>
+                                                              <li><NavLink to='personal-attendance'>Personal attendance</NavLink></li>
+                                                              </ul>
+                                                        </details></li> */}
 
-
+                                                      <li>
+                                                            <div className="dropdown dropdown-hover">
+                                                                  <label tabIndex={0} className="text-lg font-semibold flex gap-2 items-center">Attendance <IoIosArrowDown /></label>
+                                                                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                                        <li><NavLink to='todays-attendance'>Present employees</NavLink></li>
+                                                                        <li> <NavLink to='personal-attendance'>Personal attendance</NavLink></li>
+                                                                  </ul>
+                                                            </div>
+                                                      </li>
                                                 </>
                                           }
                                           <div className='mt-4'>

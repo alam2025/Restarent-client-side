@@ -23,8 +23,8 @@ const Navbar = () => {
   }, [orderdata]); 
 
     return (
-        <nav className="bg-black p-4 mb-12">
-            <div className="container mx-auto flex items-center justify-between ">
+        <nav className="bg-gray-500 shadow-lg fixed z-10 top-0 w-full py-8 mb-12">
+            <div className=" w-[80%] mx-auto flex items-center justify-between ">
                 <div className="text-white font-bold text-lg">
                     Restuarent Menu card
                 </div>
