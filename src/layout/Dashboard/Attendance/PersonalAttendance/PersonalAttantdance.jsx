@@ -22,54 +22,56 @@ const PersonalAttendance = () => {
   return (
     <div>
       <h1 className='font-bold text-center m-4 underline'>Personal Attendance</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Entry Hour</th>
-            <th>Exit Hour</th>
-            <th>Entry Date</th>
-            <th>Exit Date</th>
-            <th>Hours</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <input
-                type="text"
-                value={entryHour}
-                onChange={(e) => setEntryHour(e.target.value)}
-                className="text-white border p-2 rounded" // Add Tailwind CSS classes here
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={exitHour}
-                onChange={(e) => setExitHour(e.target.value)}
-                className="text-white border p-2 rounded" // Add Tailwind CSS classes here
-              />
-            </td>
-            <td>
-              <input
-                type="date"
-                value={entryDate}
-                onChange={(e) => setEntryDate(e.target.value)}
-                className="text-white border p-2 rounded" // Add Tailwind CSS classes here
-              />
-            </td>
-            <td>
-              <input
-                type="date"
-                value={exitDate}
-                onChange={(e) => setExitDate(e.target.value)}
-                className="text-white border p-2 rounded" // Add Tailwind CSS classes here
-              />
-            </td>
-            <td>{calculateHours()} hours</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="min-w-full">
+          <thead>
+            <tr>
+              <th className="py-2">Entry Hour</th>
+              <th className="py-2">Exit Hour</th>
+              <th className="py-2">Entry Date</th>
+              <th className="py-2">Exit Date</th>
+              <th className="py-2">Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  value={entryHour}
+                  onChange={(e) => setEntryHour(e.target.value)}
+                  className="text-white border p-2 rounded"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value={exitHour}
+                  onChange={(e) => setExitHour(e.target.value)}
+                  className="text-white border p-2 rounded"
+                />
+              </td>
+              <td>
+                <input
+                  type="date"
+                  value={entryDate}
+                  onChange={(e) => setEntryDate(e.target.value)}
+                  className="text-white border p-2 rounded"
+                />
+              </td>
+              <td>
+                <input
+                  type="date"
+                  value={exitDate}
+                  onChange={(e) => setExitDate(e.target.value)}
+                  className="text-white border p-2 rounded"
+                />
+              </td>
+              <td>{calculateHours()} hours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
