@@ -36,7 +36,20 @@ const AllEmploy = () => {
   }
 
   return (
-    <div className='w-full p-4'>
+  <>
+
+
+<div className='w-full p-4'>
+      <h1 className="text-2xl text-center font-bold mb-4">All Employees</h1>
+      <div className='flex gap-2 items-center justify-center m-4'>
+  <button className='btn bg-blue-500 text-white' onClick={()=>document.getElementById('my_modal_5').showModal()}>ADD EMPLOYEE</button>
+  <input
+    type='search'
+    className='p-2 rounded-lg bg-white text-black border border-black' // Add border and border-black classes
+    placeholder='Search...'
+  />
+</div>
+
       {isLoading ? (
         <Loader />
       ) : (

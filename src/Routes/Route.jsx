@@ -21,6 +21,7 @@ import Report from "../layout/Dashboard/Report/Report";
 import Dashboard2 from "../layout/Dashboard/Dashboard2";
 import DashboardApp from "../layout/Dashboard/DashboardApp/DashboardApp";
 import DashboardHome from "../layout/Dashboard/DashboardHome/DashboardHome";
+import Items from "../layout/Dashboard/Items/Items";
 
 
 
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'allmenu',
         element: <AdminRoute><Allmenu /></AdminRoute>
+      },
+      {
+        path: 'items',
+        element: <AdminRoute><Items/></AdminRoute>
       },
       {
         path: 'addmenu',
