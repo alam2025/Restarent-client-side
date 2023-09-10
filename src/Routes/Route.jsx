@@ -21,6 +21,7 @@ import Report from "../layout/Dashboard/Report/Report";
 import Dashboard2 from "../layout/Dashboard/Dashboard2";
 import DashboardApp from "../layout/Dashboard/DashboardApp/DashboardApp";
 import DashboardHome from "../layout/Dashboard/DashboardHome/DashboardHome";
+import PersonalAttantdance from "../layout/Dashboard/Attendance/PersonalAttendance/PersonalAttantdance";
 
 
 
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path:"todays-attendance",
         element:<AdminRoute><TodaysAttendance/></AdminRoute>
+      },
+      {
+        path:"personal-attendance",
+        element:<AdminRoute><PersonalAttantdance/></AdminRoute>
       },
       {
         path:"employee-attendance",

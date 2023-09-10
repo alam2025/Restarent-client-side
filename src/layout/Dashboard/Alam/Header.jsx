@@ -106,7 +106,7 @@ function Header() {
                                                 isAdmin && <>
                                                       {/* <li><NavLink className={'text-lg font-semibold'} to='addmenu'>Add Menu</NavLink></li> */}
                                                       {/* <li><NavLink className={'text-lg font-semibold'} to='allmenu'> Menu</NavLink></li> */}
-                                                     
+
                                                       {/* <li><NavLink className={'text-lg font-semibold'} to='addemploy'>Add Employee</NavLink></li> */}
                                                       <li><NavLink className={'text-lg font-semibold'} to='allemploy'> Employees</NavLink></li>
                                                       <li><NavLink className={'text-lg font-semibold'} to='report'>Report</NavLink></li>
@@ -120,8 +120,17 @@ function Header() {
 
 
                                                       </ul> */}
+                                                         
+
 
                                                       </li>
+                                                      <li><details className="dropdown mb-32">
+                                                                  <summary className={'text-lg font-semibold'} >Attendance</summary>
+                                                                  <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                                                  <li><NavLink className={''} to='todays-attendance'> Present employees</NavLink></li>
+                                                                  <li><NavLink to='personal-attendance'>Personal attendance</NavLink></li>
+                                                                  </ul>
+                                                            </details></li>
                                                 </>
                                           }
                                           <div className='mt-4'>
@@ -149,8 +158,15 @@ function Header() {
 
 
 
-                                                      <li><NavLink className={'text-lg font-semibold'} to='todays-attendance'> Attendance</NavLink></li>
+                                                    
                                                       {/* <li><NavLink className={'text-lg font-semibold'} to="employee-attendance">Employee Attendance</NavLink></li> */}
+                                                      <li><details className="dropdown mb-32">
+                                                                  <summary className={'text-lg font-semibold'} >Attendance</summary>
+                                                                  <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                                                  <li><NavLink className={'text-lg font-semibold'} to='todays-attendance'> Present employees</NavLink></li>
+                                                                  <li><NavLink to='personal-attendance'>Personal attendance</NavLink></li>
+                                                                  </ul>
+                                                            </details></li>
 
 
 

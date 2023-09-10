@@ -6,7 +6,7 @@ import Header from '../Alam/Header';
 const DashboardApp = () => {
       return (
 
-            <div className=' mx-auto mt-36'>
+            <div className=' mx-auto mt-72'>
                   <Header></Header>
                   <div className='w-[80%] mx-auto'>
                   <Outlet></Outlet>
