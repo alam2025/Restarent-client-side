@@ -2,15 +2,16 @@ import { Link, NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 import { VscThreeBars } from "react-icons/vsc";
-import useAdmin from '../../CustomHooks/UseAdmin';
+
 import { AuthContext } from '../../providers/AuthoProvider';
 import Loader from '../../Componets/Loader';
 import { useContext, useState } from 'react';
+import useAdmin from '../../CustomHooks/UseAdmin';
 
 const Dashboard2 = () => {
       const [isAdmin, isAdminLoading] = useAdmin();
       const navigate = useNavigate();
-      
+
       const { user, loading } = useContext(AuthContext)
       const [open, setOpen] = useState('Open');
 
@@ -65,21 +66,21 @@ const Dashboard2 = () => {
 
 
                               {/* Sidebar content here */}
-                              <li><NavLink className={ 'text-lg font-semibold'} to='statistics'>Statistics</NavLink></li>
-                              <li><NavLink className={ 'text-lg font-semibold'}  to='allorder'>OrderList</NavLink></li>
+                              <li><NavLink className={'text-lg font-semibold'} to='statistics'>Statistics</NavLink></li>
+                              <li><NavLink className={'text-lg font-semibold'} to='allorder'>OrderList</NavLink></li>
                               {
                                     isAdmin && <>
-                                          <li><NavLink className={ 'text-lg font-semibold'}   to='addmenu'>Add Menu</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='allmenu'>All Menu</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='addemploy'>Add Employee</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='allemploy'>ALL Employee</NavLink></li>
-                                          <li><NavLink className={ 'text-lg font-semibold'}  to='report'>Sales Report</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='addmenu'>Add Menu</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='allmenu'>All Menu</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='addemploy'>Add Employee</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='allemploy'>ALL Employee</NavLink></li>
+                                          <li><NavLink className={'text-lg font-semibold'} to='report'>Sales Report</NavLink></li>
                                           <li>
                                                 <details open>
-                                                      <summary className={ 'text-lg font-semibold'} >Parent</summary>
+                                                      <summary className={'text-lg font-semibold'} >Attendance</summary>
                                                       <ul>
-                                                            <li><NavLink className={ 'text-lg font-semibold'}  to='todays-attendance'>Today Attendance</NavLink></li>
-                                                            <li><NavLink className={ 'text-lg font-semibold'} to="employee-attendance">Employee Attendance</NavLink></li>
+                                                            <li><NavLink className={'text-lg font-semibold'} to='todays-attendance'>Today Attendance</NavLink></li>
+                                                            <li><NavLink className={'text-lg font-semibold'} to="employee-attendance">Employee Attendance</NavLink></li>
 
 
                                                       </ul>
@@ -91,8 +92,8 @@ const Dashboard2 = () => {
                                     < hr />
                               </div>
 
-                              <li><NavLink className={ 'text-lg font-semibold'}  to='/'>Home</NavLink></li>
-                              <li><button onClick={() => handleLogout()} className={ 'text-lg font-semibold mb-10'} >LogOut</button ></li>
+                              <li><NavLink className={'text-lg font-semibold'} to='/'>Home</NavLink></li>
+                              <li><button onClick={() => handleLogout()} className={'text-lg font-semibold mb-10'} >LogOut</button ></li>
                         </ul>
 
                   </div>

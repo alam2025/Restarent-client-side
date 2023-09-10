@@ -26,12 +26,12 @@ const Navbar = () => {
         <nav className="bg-black p-4 mb-12">
             <div className="container mx-auto flex items-center justify-between ">
                 <div className="text-white font-bold text-lg">
-                    Brand
+                    Restuarent Menu card
                 </div>
                 <div className="hidden sm:block">
                     <ul className="flex space-x-4">
                         <li><Link to="/" className="text-white">Home</Link></li>
-                        <li><Link to="/dashboard" className="text-white">Dashboard</Link></li>
+                        <li><Link to="/dashboardapp" className="text-white">Dashboard</Link></li>
                       
                         <li> <Link to="/order" className="text-gray-100  flex justify-center items-center">
             <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-bold text-2xl  " />
@@ -49,7 +49,7 @@ const Navbar = () => {
                     {menuOpen && (
                         <ul className="absolute top-12 right-0 bg-black text-white p-2 space-y-2 border shadow-2xl font-bold me-3">
                             <li><Link to="/" className="text-gray-100">Home</Link></li>
-                            <li><Link to="/dashboard" className="text-white">Dashboard</Link></li>
+                            <li><Link to="/dashboardapp" className="text-white">Dashboard</Link></li>
                           
                             <li> <Link to="/order" className="text-gray-100  flex justify-center items-center">
             <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-bold text-2xl  " />
