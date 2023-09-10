@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import useAdmin from '../../../CustomHooks/UseAdmin';
 import { AuthContext } from '../../../providers/AuthoProvider';
 import Loader from '../../../Componets/Loader';
-
+import { IoIosArrowDown } from "react-icons/io";
 
 function Header() {
       const [menuOpen, setMenuOpen] = useState(false);
@@ -104,10 +104,17 @@ function Header() {
                                           {/* <li><NavLink className={'text-lg font-semibold'} to='allorder'>OrderList</NavLink></li> */}
                                           {
                                                 isAdmin && <>
-                                                      {/* <li><NavLink className={'text-lg font-semibold'} to='addmenu'>Add Menu</NavLink></li> */}
-                                                      {/* <li><NavLink className={'text-lg font-semibold'} to='allmenu'> Menu</NavLink></li> */}
+                                                      
+                                                      <li >
+                                                            <div className="dropdown dropdown-hover">
+                                                                  <label tabIndex={0} className="text-lg font-semibold flex gap-2 items-center">Menu <IoIosArrowDown/></label>
+                                                                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                                        <li><NavLink to='allmenu'>Items</NavLink></li>
+                                                                        <li><a>Categories</a></li>
+                                                                  </ul>
+                                                            </div>
+                                                      </li>
                                                      
-                                                      {/* <li><NavLink className={'text-lg font-semibold'} to='addemploy'>Add Employee</NavLink></li> */}
                                                       <li><NavLink className={'text-lg font-semibold'} to='allemploy'> Employees</NavLink></li>
                                                       <li><NavLink className={'text-lg font-semibold'} to='report'>Report</NavLink></li>
                                                       <li>
