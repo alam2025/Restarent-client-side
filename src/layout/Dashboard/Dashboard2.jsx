@@ -2,10 +2,11 @@ import { Link, NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 import { VscThreeBars } from "react-icons/vsc";
-import useAdmin from '../../CustomHooks/UseAdmin';
+
 import { AuthContext } from '../../providers/AuthoProvider';
 import Loader from '../../Componets/Loader';
 import { useContext, useState } from 'react';
+import useAdmin from '../../CustomHooks/UseAdmin';
 
 const Dashboard2 = () => {
       const [isAdmin, isAdminLoading] = useAdmin();
