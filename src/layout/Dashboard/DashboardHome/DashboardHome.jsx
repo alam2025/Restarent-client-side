@@ -4,10 +4,12 @@ import MenuItem from '../../../Componets/MenuItem/MenuItem';
 import Statistics from '../Statistics/Statistics';
 import DashboardNavbar from '../DashboarNavbar/DashboardNavbar';
 import { Outlet } from 'react-router-dom';
+import Header from '../Alam/Header';
 
 const DashboardHome = () => {
       return (
             <div>
+                  {/* <Header></Header> */}
                 
                <Statistics></Statistics>
                   

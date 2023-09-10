@@ -6,7 +6,6 @@ import { VscThreeBars } from "react-icons/vsc";
 import { AuthContext } from '../../providers/AuthoProvider';
 import Loader from '../../Componets/Loader';
 import { useContext, useState } from 'react';
-import useAdmin from '../../CustomHooks/UseAdmin';
 
 const Dashboard2 = () => {
       const [isAdmin, isAdminLoading] = useAdmin();

@@ -23,6 +23,7 @@ const AddEmploy = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+  
     // Handle form submission here, e.g. make a POST request to your API
     console.log(formData);
     try {
