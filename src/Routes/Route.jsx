@@ -19,6 +19,8 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "../Componets/SecureRoutes/AdminRoute/AdminRoute";
 import Report from "../layout/Dashboard/Report/Report";
 import Dashboard2 from "../layout/Dashboard/Dashboard2";
+import DashboardApp from "../layout/Dashboard/DashboardApp/DashboardApp";
+import DashboardHome from "../layout/Dashboard/DashboardHome/DashboardHome";
 
 
 
@@ -44,12 +46,12 @@ const router = createBrowserRouter([
   },
 
   {
-    path: 'dashboard',
-    element: <PrivateRoute><Dashboard2 /></PrivateRoute>,
+    path: "/dashboardapp",
+    element: <DashboardApp/>,
     children: [
       {
-        path: '', // Empty path for the default child route
-        element: <Statistics />
+        path: '/dashboardapp', // Empty path for the default child route
+        element: <DashboardHome />
       },
       {
         path: 'allorder',
