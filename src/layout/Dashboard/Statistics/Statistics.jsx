@@ -32,7 +32,31 @@ const Statistics = () => {
     category,
     totalPrice
   }));
-
+  const categories = [
+    {
+      name: 'Category 1',
+      items: [
+        {
+          id: 1,
+          name: 'Item 1',
+          image: 'https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-2-370x247.jpg',
+        },
+        {
+          id: 2,
+          name: 'Item 2',
+          image: 'https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-3-370x247.jpg',
+        },
+        {
+          id: 3,
+          name: 'Item 3',
+          image: 'https://www.homewetbar.com/blog/wp-content/uploads/2015/05/refreshing-summer-cocktails.jpg',
+        },
+        // Add more items for Category 1
+      ]}
+  
+    // Add more categories as needed
+  ];
+ console.log(order)
   return (
     <div className="p-8 text-center w-[100%] mb-3 mx-auto">
       <h1 className="text-center font-bold uppercase text-2xl">Statistics</h1>
@@ -54,6 +78,30 @@ const Statistics = () => {
 
       <section className="mt-5">
         <StackBarChart />
+      </section>
+
+
+      <section className='m-4'>
+        <h1>Most sold items of this months</h1>
+
+        <div className="container mx-auto py-6">
+      {categories.map((category) => (
+        <div key={category.name} className="mb-8">
+          {/* <h2 className="text-xl font-semibold mb-4">{category.name}</h2> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto">
+            {category.items.map((item) => (
+              <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src={item.image} alt={item.name} className="w-full h-40 object-cover" />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">{item.name}</h3>
+                  {/* Add more item details here */}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
       </section>
     </div>
   );
