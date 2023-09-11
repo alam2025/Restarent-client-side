@@ -8,49 +8,48 @@ const Report = () => {
       const totalSales = 1000; // Replace with your actual total sales
       const totalCash = 600; // Replace with your actual total cash
       const totalPayPal = 400;
-      if (isReportLoading) return <Loader/>
-   
-     
+      if (isReportLoading) return <Loader />
+
+
       return (
             <div>
-                
+
 
                   <div>
-                        {/* <ReportTable report={report} /> */}
+                        <h1 className=" text-center text-2xl font-semibold">Report</h1>
 
 
                   </div>
 
-                  <section className="flex justify-between  items-center gap-3 ">
+                  <section className="flex justify-center  items-center gap-10 my-8  ">
                         <div className="flex items-center  gap-2 justify-center">
 
-                              <div><p>Start date:</p></div>
-                              <div> <input type="date"></input></div>
+                              <div><p className=" text-lg">Start date:</p></div>
+                              <div> <input className=" bg-slate-200 px-5 py-2 rounded-md" type="date"></input></div>
                         </div>
                         <div className="flex items-center  gap-2 justify-center">
 
-                         
-                        <div><p>end date:</p></div>
-                              <div> <input type="date"></input></div>
+
+                              <div><p className="text-lg">end date:</p></div>
+                              <div> <input className="bg-slate-200 px-5 py-2 rounded-md" type="date"></input></div>
 
 
                         </div>
                   </section>
-                  <div className="flex justify-end mt-80">
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">Filter</button>
-                  </div>
 
-                  <section className="">
-                  <div className="py-4 text-left">
-        <p className="text-2xl font-bold ">Total Cash: <span className="underline">${totalCash}</span> </p>
-        <p className="text-2xl font-bold ">Total PayPal:  <span className="underline">${totalPayPal}</span></p>
-        <p className="text-2xl font-bold " >Tota  Sales: <span className="underline">${totalSales}</span></p>
-     <div className="flex justify-end ">
-     <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" >
-          Print
-        </button>
-     </div>
-      </div>
+
+                  <section className=" flex flex-col justify-center items-center border  max-w-lg mx-auto rounded-md shadow-md py-5 ">
+                        <div className="py-4 flex flex-col gap-6 ">
+                              <p>Cash     :   ${totalCash}</p>
+                              <p>Paypal     :   ${totalPayPal}</p>
+                              <p>total sales    :   ${totalSales}</p>
+
+                        </div>
+                        <div className="">
+                              <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" >
+                                    Print
+                              </button>
+                        </div>
                   </section>
             </div>
       );

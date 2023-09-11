@@ -48,8 +48,8 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/dashboardapp",
-    element: <DashboardApp/>,
+    path: "dashboardapp",
+    element: <PrivateRoute><DashboardApp/></PrivateRoute>,
     children: [
       {
         path: '/dashboardapp', // Empty path for the default child route
