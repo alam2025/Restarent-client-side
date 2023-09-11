@@ -22,6 +22,7 @@ import Dashboard2 from "../layout/Dashboard/Dashboard2";
 import DashboardApp from "../layout/Dashboard/DashboardApp/DashboardApp";
 import DashboardHome from "../layout/Dashboard/DashboardHome/DashboardHome";
 import PersonalAttantdance from "../layout/Dashboard/Attendance/PersonalAttendance/PersonalAttantdance";
+import ShowCategories from "../layout/Dashboard/Categories/ShowCategories";
 
 
 
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: 'addmenu',
         element: <AdminRoute><AddMenu/></AdminRoute>
+      },
+      {
+        path: 'all-categories',
+        element: <AdminRoute><ShowCategories/></AdminRoute>
       },
       {
         path: 'addemploy',
