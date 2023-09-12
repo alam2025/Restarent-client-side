@@ -16,6 +16,15 @@ const Userorder = () => {
       const { register, handleSubmit, reset, formState: { errors } } = useForm();
       const [formData, setFormData] = useState();
       const jobRoles = ['paypal', 'cash',];
+      const handleIncrement = () => {
+            setQuantity(prevQuantity => prevQuantity + 1);
+      };
+
+      const handleDecrement = () => {
+            if (quantity > 0) {
+                  setQuantity(prevQuantity => prevQuantity - 1);
+            }
+      };
 
       const handleChange = (e) => {
             const { name, value } = e.target;
@@ -136,85 +145,69 @@ const Userorder = () => {
                   </div>
                   <ToastContainer />
                   {Object.keys(groupedOrders).map((mobile, index) => (
-                        <div key={index} className="">
-                              <h2 className='text-center uppercase font-bold mb-2'>Please Order your cart items</h2>
-                              <hr />
-                              {/* <h2 className="text-xl font-semibold mb-2">Mobile Number: {mobile}</h2> */}
-                              <div className="bg-white p-4 rounded shadow-2xl">
-                                    <table className="w-full">
-                                          <thead>
-                                                <tr className="bg-gray-100">
-                                                      <th className="border px-4 py-2">Order Name</th>
-                                                      <th className="border px-4 py-2">Price</th>
-                                                      <th className="border px-4 py-2">Quantity</th>
-                                                </tr>
-                                          </thead>
-                                          <tbody>
-                                                {groupedOrders[mobile].map((orderItem, subIndex) => (
-                                                      <tr key={subIndex}>
-                                                            <td className="border px-4 py-2">{orderItem.Food_name}</td>
-                                                            <td className="border px-4 py-2">${orderItem.foodPrice}</td>
-                                                            <td className="border px-4 py-2">{orderItem.quantity}</td>
-                                                      </tr>
-                                                ))}
-                                                <tr className="bg-gray-300 font-semibold">
-                                                      <td className="border px-4 py-2">Total</td>
-                                                      <td className="border px-4 py-2"></td>
-                                                      <td className="border px-4 py-2">
-                                                            {groupedOrders[mobile].reduce((total, item) => total + item.foodPrice * item.quantity, 0)}
-                                                      </td>
-                                                </tr>
-                                          </tbody>
-                                    </table>
+  <div key={index} className="mb-8">
+    <h2 className="text-center uppercase font-bold text-lg mt-4 mb-2">Please Order Your Cart Items</h2>
+    <hr className="border-gray-400" />
+    <div className="bg-white p-4 rounded shadow-lg">
+      <table className="w-full">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="border px-4 py-2">Order Name</th>
+            <th className="border px-4 py-2">Price</th>
+            <th className="border px-4 py-2">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {groupedOrders[mobile].map((orderItem, subIndex) => (
+            <tr key={subIndex}>
+              <td className="border px-4 py-2">{orderItem.Food_name}</td>
+              <td className="border px-4 py-2">${orderItem.foodPrice}</td>
+              <td className="border px-4 py-2">
+                <div className="flex items-center space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => handleDecrement(mobile, orderItem)}
+                    className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
+                  >
+                    -
+                  </button>
+                  <input
+                    className="border bg-slate-100 text-center py-1 px-2 rounded-md w-12"
+                    type="number"
+                    value={orderItem.quantity}
+                    readOnly
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleIncrement(mobile, orderItem)}
+                    className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
+                  >
+                    +
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+          <tr className="bg-gray-300 font-semibold">
+            <td className="border px-4 py-2">Total</td>
+            <td className="border px-4 py-2"></td>
+            <td className="border px-4 py-2">
+              ${groupedOrders[mobile].reduce((total, item) => total + item.foodPrice * item.quantity, 0)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button
+      className="btn bg-gray-300 w-full font-bold mt-4"
+      onClick={() => document.getElementById('my_modal_2').showModal()}
+    >
+      Order
+    </button>
+  </div>
+))}
 
-                              </div>
-                        </div>
-                  ))}
-                  <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-4 rounded shadow-md">
-                        <label className="text-sm">
-                              Enter your Name:
-                              <input
-                                    className="border bg-gray-100 py-1 px-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                    type="text"
-                                    {...register('name', { required: true })}
-                                    required
-                              />
-                              {errors.name && <span className="text-red-500 text-xs">Name is required</span>}
-                        </label>
-                        <label className="text-sm">
-                              Enter your Mobile:
-                              <input
-                                    className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                    type="text"
-                                    {...register('mobile', { required: true })}
-                                    required
-                              />
-                              {errors.mobile && <span className="text-red-500 text-xs">Mobile is required</span>}
-                        </label>
-                        <div className="mb-4">
-                              <label className="block text-sm font-semibold mb-1">Way To purchase</label>
-                              <select
-                                    name="role"
-                                    className="w-full border border-gray-300 bg-white text-black focus:ring focus:ring-blue-300 px-3 py-2 rounded"
-                                    value={formData}
-                                    onChange={handleChange}
-                                    required
-                              >
-                                    <option value="cash" >cash</option>
-                                    <option value="paypal" >paypal</option>
-                                    {/* <option value="" disabled>Select payment method</option>
-              {jobRoles.map((role, index) => (
-                <option key={index} value={role}>{role}</option>
-              ))} */}
-                              </select>
-                        </div>
-                        <button
-                              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300 w-full"
-                              type="submit"
-                        >
-                              Order Now
-                        </button>
-                  </form>
+              
 
                   <div className="mt-10">
                         <Link to="/">
@@ -225,6 +218,65 @@ const Userorder = () => {
                               </button>
                         </Link>
                   </div>
+
+
+
+                  <>
+
+                        <dialog id="my_modal_2" className="modal">
+                              <div className="modal-box">
+                                    <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-4 rounded shadow-md">
+                                          <label className="text-sm">
+                                                Enter your Name:
+                                                <input
+                                                      className="border bg-gray-100 py-1 px-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                      type="text"
+                                                      {...register('name', { required: true })}
+                                                      required
+                                                />
+                                                {errors.name && <span className="text-red-500 text-xs">Name is required</span>}
+                                          </label>
+                                          <label className="text-sm">
+                                                Enter your Mobile:
+                                                <input
+                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                      type="text"
+                                                      {...register('mobile', { required: true })}
+                                                      required
+                                                />
+                                                {errors.mobile && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                          </label>
+                                          <div className="mb-4">
+                                                <label className="block text-sm font-semibold mb-1">Way To purchase</label>
+                                                <select
+                                                      name="role"
+                                                      className="w-full border border-gray-300 bg-white text-black focus:ring focus:ring-blue-300 px-3 py-2 rounded"
+                                                      value={formData}
+                                                      onChange={handleChange}
+                                                      required
+                                                >
+                                                      <option value="cash" >cash</option>
+                                                      <option value="paypal" >paypal</option>
+                                                      {/* <option value="" disabled>Select payment method</option>
+              {jobRoles.map((role, index) => (
+                <option key={index} value={role}>{role}</option>
+              ))} */}
+                                                </select>
+                                          </div>
+                                          <button
+                                                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300 w-full"
+                                                type="submit"
+                                          >
+                                                Order Now
+                                          </button>
+                                    </form>
+                              </div>
+                              <form method="dialog" className="modal-backdrop">
+                                    <button>close</button>
+                              </form>
+                        </dialog>
+
+                  </>
 
             </div>
       );

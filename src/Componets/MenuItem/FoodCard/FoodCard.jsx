@@ -58,19 +58,19 @@ const FoodCard = ({ item }) => {
   };
 
   return (
-    <div className="card bg-base-100 shadow-xl w-full md:w-[90%]  p-4 rounded-lg ">
+    <div className="card bg-base-100 shadow-xl w-full md:w-[90%]   rounded-lg mb-2 ">
       <ToastContainer />
-      <figure className="mb-4">
+      <figure className="">
         <img src={image} alt="Shoes" className="w-full rounded-md" />
       </figure>
       <p className="bg-slate-900 text-white e absolute top-0 right-0 p-2">${price}</p>
-      <div className="card-body flex flex-col items-center">
-        <h2 className="card-title text-xl font-semibold mb-2">{name}</h2>
-        <p className="text-gray-600 mb-4">{recipe}</p>
+      <div className="p-2 flex flex-col items-center">
+        <h2 className="text-xl font-semibold ">{name}</h2>
+        <p className="text-gray-600 text-center ">{recipe}</p>
 
-        <div className="card">
+        <div className="">
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-            <div className="flex items-center space-x-4">
+            {/* <div className="flex items-center space-x-4">
               <label className="text-sm">
                 Enter your Quantity:
                 <div className="flex items-center">
@@ -96,14 +96,16 @@ const FoodCard = ({ item }) => {
                   </button>
                 </div>
               </label>
-            </div>
+            </div> */}
 
-            <button
-              onClick={handleAddToCart}
-              className="btn btn-outline border-0 border-b-4 bg-slate-100 border-orange-400 py-2 rounded-md hover:bg-slate-200 transition-colors"
-            >
-              Add to cart
-            </button>
+            <div className="w-full relative  bottom-0">
+              <button
+                onClick={handleAddToCart}
+                className="mt-3 bottom-0 btn btn-outline border-0 border-b-4 bg-slate-100 border-orange-400 py-2 rounded-md hover:bg-slate-200 transition-colors"
+              >
+                Add to cart
+              </button>
+            </div>
           </form>
         </div>
       </div>
