@@ -4,8 +4,8 @@ import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 
-const EmplyEdidt = () => {
-  const { id } = useParams();
+const EmplyEdidt = ({id}) => {
+  console.log(id)
   const { employee, isLoading, refetch } = AllemployData();
 
   const [formData, setFormData] = useState({});
@@ -88,7 +88,7 @@ const EmplyEdidt = () => {
   }
 
   return (
-    <div className="w-full flex justify-center items-center bg-gray-100 h-screen">
+    <div className="w-full flex justify-center items-center bg-gray-100 ">
       <ToastContainer></ToastContainer>
       <div className="w-full bg-white p-6 rounded shadow-md max-w-md">
         <h2 className="text-2xl font-semibold mb-4 text-center">Edit Employee: {id}</h2>

@@ -6,11 +6,12 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'; // Import t
 import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import Loader from '../../../Componets/Loader';
+import EmplyEdidt from '../EmplyEdidt/EmplyEdidt';
 
 const AllEmploy = () => {
   const [url] = useUrl();
   const { employee, isLoading, refetch } = AllemployData();
-
+  const [id, setEditId] = useState(null);
   const onDelete = async (id) => {
     // ... Your delete logic here ...
   };
@@ -18,12 +19,12 @@ const AllEmploy = () => {
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    id:'',
+    id: '',
     name: '',
     phone: '',
-    address:'',
+    address: '',
     role: '',
-    status:''
+    status: ''
   });
 
   const jobRoles = ['manager', 'Waiter', 'Kitchen'];
@@ -37,7 +38,7 @@ const AllEmploy = () => {
     e.preventDefault();
     console.log(formData);
   }
-  console.log(employee)
+  // console.log(id)
   return (
     <>
       <div className='w-full p-4'>
@@ -78,11 +79,17 @@ const AllEmploy = () => {
                       <td className="border px-4 py-2">{emp.phone}</td>
 
                       <td className="border px-4 py-2">
-                        <Link to={`/dashboard/emplyedit/${emp.id}`}>
-                          <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2">
-                            <FontAwesomeIcon icon={faEdit} />
-                          </button>
-                        </Link>
+
+                        <button className="btn" onClick={() => {
+                          document.getElementById('my_modal_4').showModal();
+                          setEditId(emp.id);
+                        }}>
+                          <FontAwesomeIcon icon={faEdit} />
+                        </button>
+
+
+
+
                         <button
                           className="btn bg-slate-200 shadow-2xl text-red-500 hover:text-red-700 ml-2"
                           onClick={() => onDelete(emp.id)}
@@ -98,8 +105,8 @@ const AllEmploy = () => {
           </div>
 
         )}
-        </div>
-                  
+      </div>
+
 
 
       <section>
@@ -157,7 +164,7 @@ const AllEmploy = () => {
                       required
                     />
                   </div>
-                 
+
 
                   <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Job Role</label>
@@ -194,6 +201,21 @@ const AllEmploy = () => {
           </div>
         </dialog>
       </section>
+
+      {/* modal */}
+
+
+      <dialog id="my_modal_4" className="modal">
+        <div className="modal-box w-11/12 max-w-5xl">
+         <EmplyEdidt id={id}></EmplyEdidt>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button, it will close the modal */}
+              <button className="btn btn-sm bg-red-500">X</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };
