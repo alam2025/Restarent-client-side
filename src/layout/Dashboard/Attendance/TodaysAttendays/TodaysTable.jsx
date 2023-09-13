@@ -26,8 +26,23 @@ const TodaysTable = () => {
                   sortable: true,
             },
             {
-                  name: 'Date',
-                  selector: row => row.first_in.split("T")[0],
+                  name: 'Entry Hour',
+                  selector: row => row.entryHour,
+                  sortable: true,
+            },
+            {
+                  name: 'Entry Date',
+                  selector: row => row.entryDate,
+                  sortable: true,
+            },
+            {
+                  name: 'Exit Hour',
+                  selector: row => row.exitHour,
+                  sortable: true,
+            },
+            {
+                  name: 'Exit Date',
+                  selector: row => row.exitDate,
                   sortable: true,
             },
            
