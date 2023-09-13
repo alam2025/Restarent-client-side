@@ -8,8 +8,11 @@ import Loader from '../../../Componets/Loader';
 import { IoIosArrowDown } from "react-icons/io";
 import useAdmin from '../../../CustomHooks/UseAdmin';
 import Swal from 'sweetalert2';
+import useUrl from '../../../CustomHooks/URL/UseUrl';
+
 
 function Header() {
+      const [url] = useUrl()
       const [menuOpen, setMenuOpen] = useState(false);
       const { user, loading } = useContext(AuthContext)
 
@@ -25,23 +28,57 @@ function Header() {
             return <Loader />
       }
 
-      console.log(user)
+
 
 
       const handleLogout = () => {
+            console.log(user.id)
+
             Swal.fire({
                   title: 'Are you sure to Exit?',
-
-
                   showCancelButton: true,
                   confirmButtonColor: '#3085d6',
                   cancelButtonColor: '#d33',
                   confirmButtonText: 'Exit!'
-            }).then((result) => {
+            }).then(async (result) => {
                   if (result.isConfirmed) {
-                        localStorage.removeItem('user')
-                        navigate('/')
-                        location.reload()
+                        // exit date and time calculated 
+                        try {
+                              const res = await fetch(`${url}/exit`, {
+                                    method: 'POST',
+                                    headers: {
+                                          'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ userId: user?.id }),
+                              });
+
+                              const responseData = await res.json();
+
+
+
+                              if (responseData.success) {
+
+                                    localStorage.removeItem('user')
+                                    navigate('/')
+                                    location.reload()
+
+                              } else {
+                                    toast.error(responseData.message, {
+                                          position: "top-right",
+                                          autoClose: 5000,
+                                          hideProgressBar: false,
+                                          closeOnClick: true,
+                                          pauseOnHover: true,
+                                          draggable: true,
+                                          progress: undefined,
+                                          theme: "light",
+                                    });
+                              }
+                        } catch (error) {
+
+                        }
+
+
 
 
                   }
