@@ -18,12 +18,12 @@ const AllEmploy = () => {
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    id:'',
+    id: '',
     name: '',
     phone: '',
-    address:'',
+    address: '',
     role: '',
-    status:''
+    status: ''
   });
 
   const jobRoles = ['manager', 'Waiter', 'Kitchen'];
@@ -35,9 +35,65 @@ const AllEmploy = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    try {
+      const res = await fetch(`${url}/employee`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const responseData = await res.json();
+
+
+
+      if (responseData.Inserted > 0) {
+
+        toast.success(responseData.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+
+        });
+        // deleteShoppingCart();
+
+
+
+
+      } else {
+        toast.error(responseData.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error("Error while sending the order:", error);
+      toast.error("Error while sending the order. Please try again later.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   }
-  console.log(employee)
+  
   return (
     <>
       <div className='w-full p-4'>
@@ -73,8 +129,8 @@ const AllEmploy = () => {
                     <tr key={emp.id} className="bg-white">
                       <td className="border px-4 py-2">{emp.id}</td>
                       <td className="border px-4 py-2">{emp.name}</td>
-                      <td className="border px-4 py-2">{emp.email}</td>
-                      <td className="border px-4 py-2">{emp.role}</td>
+                      <td className="border px-4 py-2">{emp.address}</td>
+                      <td className="border px-4 py-2">{emp.jobtitle}</td>
                       <td className="border px-4 py-2">{emp.phone}</td>
 
                       <td className="border px-4 py-2">
@@ -98,8 +154,8 @@ const AllEmploy = () => {
           </div>
 
         )}
-        </div>
-                  
+      </div>
+
 
 
       <section>
@@ -157,7 +213,7 @@ const AllEmploy = () => {
                       required
                     />
                   </div>
-                 
+
 
                   <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Job Role</label>
@@ -186,9 +242,8 @@ const AllEmploy = () => {
             <div className="modal-action">
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
-                <button className="btn btn-sm p-2">Cancle</button>
-                <button className="btn">Add</button>
-
+                <button className="btn btn-sm p-2">Cancel</button>
+                
               </form>
             </div>
           </div>
