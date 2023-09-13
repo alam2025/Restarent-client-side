@@ -40,8 +40,8 @@ const Report = () => {
 
                   <section className=" flex flex-col justify-center items-center border  max-w-lg mx-auto rounded-md shadow-md py-5 ">
                         <div className="py-4 flex flex-col gap-6 ">
-                              <p>Cash     :   ${totalCash}</p>
-                              <p>Paypal     :   ${totalPayPal}</p>
+                              <p>Total Cash     :   ${totalCash}</p>
+                              <p>Total Paypal     :   ${totalPayPal}</p>
                               <p>total sales    :   ${totalSales}</p>
 
                         </div>

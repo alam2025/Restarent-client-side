@@ -53,7 +53,7 @@ function Header() {
             setMenuOpen(!menuOpen);
       };
 
-     
+
       return (
             <header className={` fixed w-full px-[10%] h-[100px]    mx-auto z-10 top-0 bg-white shadow-lg ${menuOpen ? 'menu-open' : 'menu-close'}`}>
                   <div className=" mx-auto py-8">
@@ -108,7 +108,15 @@ function Header() {
                                     <ul className="flex space-x-4 ">
 
                                           <li><NavLink className={'text-lg '} to='statistics'>Statistics</NavLink></li>
-                                          <li><NavLink to='allorder' className={'text-lg '}>Order List</NavLink></li>
+                                          <li >
+                                                <div className="dropdown dropdown-hover">
+                                                      <label tabIndex={0} className="text-lg  flex gap-2 items-center">Orders <IoIosArrowDown /></label>
+                                                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                            <li><NavLink to='allmenu'>Cash</NavLink></li>
+                                                            <li> <NavLink to='all-categories'>Paypal</NavLink></li>
+                                                      </ul>
+                                                </div>
+                                          </li>
                                           {
                                                 user?.role == 'manager' && <>
 
@@ -155,7 +163,15 @@ function Header() {
                                     <ul className="flex flex-col gap-5 ">
 
                                           <li><NavLink className={'text-lg '} to='statistics'>Statistics</NavLink></li>
-                                          <li><NavLink to='allorder' className={'text-lg '}>Order List</NavLink></li>
+                                          <li >
+                                                <div className="dropdown dropdown-hover">
+                                                      <label tabIndex={0} className="text-lg  flex gap-2 items-center">Orders <IoIosArrowDown /></label>
+                                                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                            <li><NavLink to='allmenu'>Cash</NavLink></li>
+                                                            <li> <NavLink to='all-categories'>Paypal</NavLink></li>
+                                                      </ul>
+                                                </div>
+                                          </li>
                                           {
                                                 user?.role == 'manager' && <>
 
@@ -172,7 +188,7 @@ function Header() {
 
                                                       <li><NavLink className={'text-lg '} to='allemploy'> Employees</NavLink></li>
                                                       <li><NavLink className={'text-lg '} to='report'>Report</NavLink></li>
-                                                      
+
 
                                                       <li>
                                                             <div className="dropdown dropdown-hover">
