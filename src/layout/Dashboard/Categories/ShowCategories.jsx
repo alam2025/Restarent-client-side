@@ -19,7 +19,7 @@ const ShowCategories = () => {
             e.preventDefault();
           }
       return (
-            <div>
+            <div><button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button>
                   <h1 className="text-2xl text-center font-bold mb-5">Categories</h1>
                   <div className='flex gap-2 items-center md:gap-20  justify-center m-4'>
 
@@ -40,125 +40,14 @@ const ShowCategories = () => {
                                           <p>Code : F1201</p>
                                           <h1 className=' text-xl font-semibold'>Desert</h1>
                                           <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
+                                                <button onClick={()=>document.getElementById('my_modal_5').showModal()} className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
                                                 <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
                                           </div>
                                     </div>
                               </div>
 
                         </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
+                       
                         <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
                               <div className=' flex items-center gap-3 justify-between pr-5'>
                                     <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
@@ -242,6 +131,21 @@ const ShowCategories = () => {
                               </div>
                         </dialog>
                   </section>
+
+
+                  {/* modal */}
+                  <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Hello!</h3>
+    <p className="py-4">Press ESC key or click the button below to close</p>
+    <div className="modal-action">
+      <form method="dialog">
+        {/* if there is a button in form, it will close the modal */}
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
             </div>
       );
 };
