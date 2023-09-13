@@ -12,9 +12,6 @@ const AllEmploy = () => {
   const [url] = useUrl();
   const { employee, isLoading, refetch } = AllemployData();
   const [id, setEditId] = useState(null);
-  const onDelete = async (id) => {
-    // ... Your delete logic here ...
-  };
 
 
   const navigate = useNavigate();
@@ -26,6 +23,50 @@ const AllEmploy = () => {
     role: '',
     status: ''
   });
+
+
+  // delete method adde d
+  const onDelete = async (id) => {
+    try {
+      // Make a DELETE request to the server to delete the resource with the given ID
+      const response = await fetch(``, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json', // Adjust the content type as needed
+          // Add any other headers if required, e.g., authorization token
+        },
+      });
+  
+      if (!response.ok) {
+        // Handle error responses, e.g., resource not found or permission denied
+        throw new Error(`Failed to delete resource with ID ${id}`);
+      }
+  
+      // Resource deleted successfully, you can perform additional actions here
+      console.log(`Resource with ID ${id} has been deleted.`);
+    } catch (error) {
+      // Handle and log any errors that occur during the delete operation
+      console.error('Error deleting resource:', error);
+    }
+  };
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const jobRoles = ['manager', 'Waiter', 'Kitchen'];
 
