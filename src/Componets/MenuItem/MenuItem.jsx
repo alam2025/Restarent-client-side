@@ -39,19 +39,19 @@ const MenuItem = () => {
         </TabList>
 
         <TabPanel >
-          <OrderTab items={deserts}></OrderTab>
+          <OrderTab  items={deserts}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <OrderTab items={soup}></OrderTab>
+          <OrderTab  items={soup}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <OrderTab items={salad}></OrderTab>
+          <OrderTab  items={salad}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <OrderTab items={pizza}></OrderTab>
+          <OrderTab  items={pizza}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <OrderTab items={drinks}></OrderTab>
+          <OrderTab  items={drinks}></OrderTab>
         </TabPanel>
       </Tabs>
     </div>

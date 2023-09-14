@@ -1,14 +1,17 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { AuthContext } from '../../../providers/AuthoProvider';
+
 import { SetUser } from '../../../CustomHooks/SetUser/UserHook';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
-import { addToDb } from '../../utitilies/databse';
+import { addToDb, getShoppingCart } from '../../utitilies/databse';
 import MenuData from '../../../CustomHooks/MenuData/MenuData';
+import { DataContext } from '../../../App';
+
 
 const FoodCard = ({ item }) => {
+const {count,addData}= useContext(DataContext)
   const { menu, isLoading, refetch } = MenuData();
   const [url] = useUrl();
   const { name, image, price, recipe, id, category } = item;
@@ -29,11 +32,12 @@ const FoodCard = ({ item }) => {
     }
   };
 
-  const handleAddToCart = () => {
-    // Handle adding the item to the cart with the selected quantity
-    console.log(`Adding ${quantity * price} ${name}(s) to the cart`);
-  };
 
+const handleAddToCart =()=>{
+ 
+  console.log('abc');
+}
+console.log(count);
   const onSubmit = async (data, e) => {
     e.preventDefault(); // Prevent form submission
 
@@ -54,7 +58,20 @@ const FoodCard = ({ item }) => {
     };
     setuser(OrderItem);
     addToDb(id, OrderItem);
-    location.reload();
+    toast.success("Menu is Added to Cart !!!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+
+    });
+    location.reload()
+
+  
   };
 
   return (
@@ -63,7 +80,7 @@ const FoodCard = ({ item }) => {
       <figure className="">
         <img src={image} alt="Shoes" className="w-full rounded-md" />
       </figure>
-      <p className="bg-slate-900 text-white e absolute top-0 right-0 p-2">${price}</p>
+      <p className="bg-slate-900 text-white rounded-md e absolute top-0 right-0 p-2">${price}</p>
       <div className="p-2 flex flex-col items-center">
         <h2 className="text-xl font-semibold ">{name}</h2>
         <p className="text-gray-600 text-center ">{recipe}</p>

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getShoppingCart } from '../../utitilies/databse';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'; // Add this line
+import { DataContext } from '../../../App';
 
 
 const Navbar = () => {
- 
+ const {count}= useContext(DataContext)
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -21,7 +22,7 @@ const Navbar = () => {
     console.log(orderdata); // Logging the entire orderdata array
     console.log(orderdata.length); // Logging the length of the orderdata array
   }, [orderdata]); 
-
+console.log(count);
     return (
         <nav className="bg-gray-500 shadow-lg fixed z-10 top-0 w-full py-8 mb-12">
             <div className=" w-[80%] mx-auto flex items-center justify-between ">

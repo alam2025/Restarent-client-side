@@ -15,13 +15,14 @@ const Userorder = () => {
 
       const { register, handleSubmit, reset, formState: { errors } } = useForm();
       const [formData, setFormData] = useState();
-      const jobRoles = ['paypal', 'cash',];
+    
       const handleIncrement = () => {
             setQuantity(prevQuantity => prevQuantity + 1);
       };
 
-      const handleDecrement = () => {
-            if (quantity > 0) {
+      const handleDecrement = (food) => {
+            
+            if (food.quantity > 0) {
                   setQuantity(prevQuantity => prevQuantity - 1);
             }
       };
@@ -47,12 +48,13 @@ const Userorder = () => {
             }
       }, []);
 
-      console.log(total)
+     
 
       const onSubmit = async (data, e) => {
             e.preventDefault();
             console.log(formData)
             const orderItem = {
+                  id:new Date().toString().split('T')[0],
                   name: data.name,
                   mobile: data.mobile,
                   orderdata_array: orderdata,
@@ -123,14 +125,16 @@ const Userorder = () => {
       };
       // Group the order data by phone number
       orderdata.forEach(orderItem => {
-            const { Food_name, foodPrice, quantity, mobile } = orderItem;
+            
+            const { Food_name, foodPrice,foodId, quantity, mobile } = orderItem;
             if (!groupedOrders[mobile]) {
                   groupedOrders[mobile] = [];
             }
             groupedOrders[mobile].push({
+                  foodId,
                   Food_name,
                   foodPrice,
-                  quantity,
+                  quantity:quantity | 1,
             });
       });
 
@@ -145,69 +149,69 @@ const Userorder = () => {
                   </div>
                   <ToastContainer />
                   {Object.keys(groupedOrders).map((mobile, index) => (
-  <div key={index} className="mb-8">
-    <h2 className="text-center uppercase font-bold text-lg mt-4 mb-2">Please Order Your Cart Items</h2>
-    <hr className="border-gray-400" />
-    <div className="bg-white p-4 rounded shadow-lg">
-      <table className="w-full">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border px-4 py-2">Order Name</th>
-            <th className="border px-4 py-2">Price</th>
-            <th className="border px-4 py-2">Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {groupedOrders[mobile].map((orderItem, subIndex) => (
-            <tr key={subIndex}>
-              <td className="border px-4 py-2">{orderItem.Food_name}</td>
-              <td className="border px-4 py-2">${orderItem.foodPrice}</td>
-              <td className="border px-4 py-2">
-                <div className="flex items-center space-x-4">
-                  <button
-                    type="button"
-                    onClick={() => handleDecrement(mobile, orderItem)}
-                    className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
-                  >
-                    -
-                  </button>
-                  <input
-                    className="border bg-slate-100 text-center py-1 px-2 rounded-md w-12"
-                    type="number"
-                    value={orderItem.quantity}
-                    readOnly
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleIncrement(mobile, orderItem)}
-                    className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
-                  >
-                    +
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-          <tr className="bg-gray-300 font-semibold">
-            <td className="border px-4 py-2">Total</td>
-            <td className="border px-4 py-2"></td>
-            <td className="border px-4 py-2">
-              ${groupedOrders[mobile].reduce((total, item) => total + item.foodPrice * item.quantity, 0)}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <button
-      className="btn bg-gray-300 w-full font-bold mt-4"
-      onClick={() => document.getElementById('my_modal_2').showModal()}
-    >
-      Order
-    </button>
-  </div>
-))}
+                        <div key={index} className="mb-8">
+                              <h2 className="text-center uppercase font-bold text-lg mt-4 mb-2">Please Order Your Cart Items</h2>
+                              <hr className="border-gray-400" />
+                              <div className="bg-white p-4 rounded shadow-lg">
+                                    <table className="w-full">
+                                          <thead>
+                                                <tr className="bg-gray-100">
+                                                      <th className="border px-4 py-2">Order Name</th>
+                                                      <th className="border px-4 py-2">Price</th>
+                                                      <th className="border px-4 py-2">Quantity</th>
+                                                </tr>
+                                          </thead>
+                                          <tbody>
+                                                {groupedOrders[mobile].map((orderItem, subIndex) => (
+                                                      <tr key={subIndex}>
+                                                            <td className="border px-4 py-2">{orderItem.Food_name}</td>
+                                                            <td className="border px-4 py-2">${orderItem.foodPrice}</td>
+                                                            <td className="border px-4 py-2">
+                                                                  <div className="flex items-center space-x-4">
+                                                                        <button
+                                                                              type="button"
+                                                                              onClick={() => handleDecrement(orderItem)}
+                                                                              className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
+                                                                        >
+                                                                              -
+                                                                        </button>
+                                                                        <input
+                                                                              className="border bg-slate-100 text-center py-1 px-2 rounded-md w-12"
+                                                                              type="number"
+                                                                              value={orderItem.quantity || 1}
+                                                                              readOnly
+                                                                        />
+                                                                        <button
+                                                                              type="button"
+                                                                              onClick={() => handleIncrement(mobile, orderItem)}
+                                                                              className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
+                                                                        >
+                                                                              +
+                                                                        </button>
+                                                                  </div>
+                                                            </td>
+                                                      </tr>
+                                                ))}
+                                                <tr className="bg-gray-300 font-semibold">
+                                                      <td className="border px-4 py-2">Total</td>
+                                                      <td className="border px-4 py-2"></td>
+                                                      <td className="border px-4 py-2">
+                                                            ${groupedOrders[mobile].reduce((total, item) => total + item.foodPrice * item.quantity, 0)}
+                                                      </td>
+                                                </tr>
+                                          </tbody>
+                                    </table>
+                              </div>
+                              <button
+                                    className="btn bg-gray-300 w-full font-bold mt-4"
+                                    onClick={() => document.getElementById('my_modal_2').showModal()}
+                              >
+                                    Order
+                              </button>
+                        </div>
+                  ))}
 
-              
+
 
                   <div className="mt-10">
                         <Link to="/">
@@ -255,7 +259,9 @@ const Userorder = () => {
                                                       onChange={handleChange}
                                                       required
                                                 >
-                                                      <option value="cash" >cash</option>
+                                                      
+                                                      <option  disabled selected >Payment Method</option>
+                                                      <option  value="cash" >cash</option>
                                                       <option value="paypal" >paypal</option>
                                                       {/* <option value="" disabled>Select payment method</option>
               {jobRoles.map((role, index) => (

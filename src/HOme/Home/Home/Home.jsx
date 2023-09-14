@@ -18,7 +18,7 @@ const Home = () => {
                   
                    <ToastContainer/>
                 
-                  <MenuItem></MenuItem>
+                  <MenuItem ></MenuItem>
             </div>
       );
 };
