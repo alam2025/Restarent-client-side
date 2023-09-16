@@ -12,21 +12,24 @@ const Userorder = () => {
       const [total, setTotal] = useState(0);
       const groupedOrders = {};
       const [url] = useUrl();
+      const [quantity, setQuantity] = useState(1);
 
       const { register, handleSubmit, reset, formState: { errors } } = useForm();
       const [formData, setFormData] = useState();
-    
+
       const handleIncrement = () => {
             setQuantity(prevQuantity => prevQuantity + 1);
       };
 
-      const handleDecrement = (food) => {
-            
-            if (food.quantity > 0) {
+      const handleDecrement = (foodId) => {
+
+            if (quantity > 1) {
                   setQuantity(prevQuantity => prevQuantity - 1);
             }
       };
 
+    
+     
       const handleChange = (e) => {
             const { name, value } = e.target;
             // setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -34,11 +37,12 @@ const Userorder = () => {
             setFormData(e.target.value)
       };
       useEffect(() => {
-            const data = getShoppingCart();
+            let data = getShoppingCart();
 
-            console.log(data)
+           
             if (Array.isArray(data)) {
                   setOrderData(data);
+                  console.log(data);
                   const total = data.reduce((total, orderItem) => {
                         return total + orderItem.foodPrice * orderItem.quantity;
                   }, 0);
@@ -46,15 +50,14 @@ const Userorder = () => {
             } else {
                   console.error("Error: getShoppingCart() did not return an array.");
             }
-      }, []);
+      }, [quantity]);
 
-     
+
 
       const onSubmit = async (data, e) => {
             e.preventDefault();
             console.log(formData)
             const orderItem = {
-                  id:new Date().toString().split('T')[0],
                   name: data.name,
                   mobile: data.mobile,
                   orderdata_array: orderdata,
@@ -65,68 +68,68 @@ const Userorder = () => {
 
             console.log(orderItem)
 
-            try {
-                  const res = await fetch(`${url}/orderItem`, {
-                        method: 'POST',
-                        headers: {
-                              'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(orderItem),
-                  });
+            // try {
+            //       const res = await fetch(`${url}/orderItem`, {
+            //             method: 'POST',
+            //             headers: {
+            //                   'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify(orderItem),
+            //       });
 
-                  const responseData = await res.json();
-
-
-
-                  if (responseData.InsertedId > 0) {
-                        reset()
-                        toast.success(responseData.message, {
-                              position: "top-right",
-                              autoClose: 5000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: "light",
-
-                        });
-                        deleteShoppingCart();
+            //       const responseData = await res.json();
 
 
 
+            //       if (responseData.InsertedId > 0) {
+            //             reset()
+            //             toast.success(responseData.message, {
+            //                   position: "top-right",
+            //                   autoClose: 5000,
+            //                   hideProgressBar: false,
+            //                   closeOnClick: true,
+            //                   pauseOnHover: true,
+            //                   draggable: true,
+            //                   progress: undefined,
+            //                   theme: "light",
+
+            //             });
+            //             deleteShoppingCart();
 
 
-                  } else {
-                        toast.error(responseData.message, {
-                              position: "top-right",
-                              autoClose: 5000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: "light",
-                        });
-                  }
-            } catch (error) {
-                  console.error("Error while sending the order:", error);
-                  toast.error("Error while sending the order. Please try again later.", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                  });
-            }
+
+
+
+            //       } else {
+            //             toast.error(responseData.message, {
+            //                   position: "top-right",
+            //                   autoClose: 5000,
+            //                   hideProgressBar: false,
+            //                   closeOnClick: true,
+            //                   pauseOnHover: true,
+            //                   draggable: true,
+            //                   progress: undefined,
+            //                   theme: "light",
+            //             });
+            //       }
+            // } catch (error) {
+            //       console.error("Error while sending the order:", error);
+            //       toast.error("Error while sending the order. Please try again later.", {
+            //             position: "top-right",
+            //             autoClose: 5000,
+            //             hideProgressBar: false,
+            //             closeOnClick: true,
+            //             pauseOnHover: true,
+            //             draggable: true,
+            //             progress: undefined,
+            //             theme: "light",
+            //       });
+            // }
       };
       // Group the order data by phone number
       orderdata.forEach(orderItem => {
-            
-            const { Food_name, foodPrice,foodId, quantity, mobile } = orderItem;
+
+            const { Food_name, foodPrice, foodId, mobile } = orderItem;
             if (!groupedOrders[mobile]) {
                   groupedOrders[mobile] = [];
             }
@@ -134,7 +137,7 @@ const Userorder = () => {
                   foodId,
                   Food_name,
                   foodPrice,
-                  quantity:quantity | 1,
+                  quantity: 3,
             });
       });
 
@@ -170,7 +173,7 @@ const Userorder = () => {
                                                                   <div className="flex items-center space-x-4">
                                                                         <button
                                                                               type="button"
-                                                                              onClick={() => handleDecrement(orderItem)}
+                                                                              onClick={()=>handleDecrement(orderItem.foodId)}
                                                                               className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
                                                                         >
                                                                               -
@@ -178,12 +181,12 @@ const Userorder = () => {
                                                                         <input
                                                                               className="border bg-slate-100 text-center py-1 px-2 rounded-md w-12"
                                                                               type="number"
-                                                                              value={orderItem.quantity || 1}
+                                                                              value={quantity}
                                                                               readOnly
                                                                         />
                                                                         <button
                                                                               type="button"
-                                                                              onClick={() => handleIncrement(mobile, orderItem)}
+                                                                              onClick={handleIncrement}
                                                                               className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
                                                                         >
                                                                               +
@@ -259,9 +262,9 @@ const Userorder = () => {
                                                       onChange={handleChange}
                                                       required
                                                 >
-                                                      
-                                                      <option  disabled selected >Payment Method</option>
-                                                      <option  value="cash" >cash</option>
+
+                                                      <option disabled selected >Payment Method</option>
+                                                      <option value="cash" >cash</option>
                                                       <option value="paypal" >paypal</option>
                                                       {/* <option value="" disabled>Select payment method</option>
               {jobRoles.map((role, index) => (
