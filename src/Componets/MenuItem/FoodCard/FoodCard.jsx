@@ -87,7 +87,7 @@ console.log(count);
 
         <div className="">
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-            {/* <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <label className="text-sm">
                 Enter your Quantity:
                 <div className="flex items-center">
@@ -113,7 +113,7 @@ console.log(count);
                   </button>
                 </div>
               </label>
-            </div> */}
+            </div>
 
             <div className="w-full relative  bottom-0">
               <button

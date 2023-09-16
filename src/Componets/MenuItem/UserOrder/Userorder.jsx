@@ -16,17 +16,7 @@ const Userorder = () => {
 
       const { register, handleSubmit, reset, formState: { errors } } = useForm();
       const [formData, setFormData] = useState();
-
-      const handleIncrement = () => {
-            setQuantity(prevQuantity => prevQuantity + 1);
-      };
-
-      const handleDecrement = (foodId) => {
-
-            if (quantity > 1) {
-                  setQuantity(prevQuantity => prevQuantity - 1);
-            }
-      };
+      const jobRoles = ['paypal', 'cash',];
 
     
      
@@ -53,6 +43,7 @@ const Userorder = () => {
       }, [quantity]);
 
 
+      console.log(total)
 
       const onSubmit = async (data, e) => {
             e.preventDefault();
@@ -96,7 +87,7 @@ const Userorder = () => {
             //             });
             //             deleteShoppingCart();
 
-
+                      navigate('/');
 
 
 
@@ -128,16 +119,14 @@ const Userorder = () => {
       };
       // Group the order data by phone number
       orderdata.forEach(orderItem => {
-
-            const { Food_name, foodPrice, foodId, mobile } = orderItem;
+            const { Food_name, foodPrice, quantity, mobile } = orderItem;
             if (!groupedOrders[mobile]) {
                   groupedOrders[mobile] = [];
             }
             groupedOrders[mobile].push({
-                  foodId,
                   Food_name,
                   foodPrice,
-                  quantity: 3,
+                  quantity,
             });
       });
 
@@ -152,10 +141,11 @@ const Userorder = () => {
                   </div>
                   <ToastContainer />
                   {Object.keys(groupedOrders).map((mobile, index) => (
-                        <div key={index} className="mb-8">
-                              <h2 className="text-center uppercase font-bold text-lg mt-4 mb-2">Please Order Your Cart Items</h2>
-                              <hr className="border-gray-400" />
-                              <div className="bg-white p-4 rounded shadow-lg">
+                        <div key={index} className="">
+                              <h2 className='text-center uppercase font-bold mb-2'>Please Order your cart items</h2>
+                              <hr />
+                              {/* <h2 className="text-xl font-semibold mb-2">Mobile Number: {mobile}</h2> */}
+                              <div className="bg-white p-4 rounded shadow-2xl">
                                     <table className="w-full">
                                           <thead>
                                                 <tr className="bg-gray-100">
@@ -169,68 +159,32 @@ const Userorder = () => {
                                                       <tr key={subIndex}>
                                                             <td className="border px-4 py-2">{orderItem.Food_name}</td>
                                                             <td className="border px-4 py-2">${orderItem.foodPrice}</td>
-                                                            <td className="border px-4 py-2">
-                                                                  <div className="flex items-center space-x-4">
-                                                                        <button
-                                                                              type="button"
-                                                                              onClick={()=>handleDecrement(orderItem.foodId)}
-                                                                              className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
-                                                                        >
-                                                                              -
-                                                                        </button>
-                                                                        <input
-                                                                              className="border bg-slate-100 text-center py-1 px-2 rounded-md w-12"
-                                                                              type="number"
-                                                                              value={quantity}
-                                                                              readOnly
-                                                                        />
-                                                                        <button
-                                                                              type="button"
-                                                                              onClick={handleIncrement}
-                                                                              className="bg-slate-100 text-gray-600 py-1 px-2 rounded-md hover:bg-slate-200 hover:text-gray-800 transition-colors"
-                                                                        >
-                                                                              +
-                                                                        </button>
-                                                                  </div>
-                                                            </td>
+                                                            <td className="border px-4 py-2">{orderItem.quantity}</td>
                                                       </tr>
                                                 ))}
                                                 <tr className="bg-gray-300 font-semibold">
                                                       <td className="border px-4 py-2">Total</td>
                                                       <td className="border px-4 py-2"></td>
                                                       <td className="border px-4 py-2">
-                                                            ${groupedOrders[mobile].reduce((total, item) => total + item.foodPrice * item.quantity, 0)}
+                                                            {groupedOrders[mobile].reduce((total, item) => total + item.foodPrice * item.quantity, 0)}
                                                       </td>
                                                 </tr>
                                           </tbody>
                                     </table>
+
                               </div>
-                              <button
+                        </div>
+                  ))}
+                   <button
                                     className="btn bg-gray-300 w-full font-bold mt-4"
                                     onClick={() => document.getElementById('my_modal_2').showModal()}
                               >
                                     Order
                               </button>
-                        </div>
-                  ))}
 
 
 
-                  <div className="mt-10">
-                        <Link to="/">
-                              <button
-                                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300"
-                              >
-                                    {'<----'} Back
-                              </button>
-                        </Link>
-                  </div>
-
-
-
-                  <>
-
-                        <dialog id="my_modal_2" className="modal">
+<dialog id="my_modal_2" className="modal">
                               <div className="modal-box">
                                     <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-4 rounded shadow-md">
                                           <label className="text-sm">
@@ -283,9 +237,17 @@ const Userorder = () => {
                               <form method="dialog" className="modal-backdrop">
                                     <button>close</button>
                               </form>
-                        </dialog>
-
-                  </>
+                        </dialog> 
+            
+                  <div className="mt-10">
+                        <Link to="/">
+                              <button
+                                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300"
+                              >
+                                    {'<----'} Back
+                              </button>
+                        </Link>
+                  </div>
 
             </div>
       );
