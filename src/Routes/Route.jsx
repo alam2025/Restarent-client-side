@@ -23,6 +23,9 @@ import DashboardApp from "../layout/Dashboard/DashboardApp/DashboardApp";
 import DashboardHome from "../layout/Dashboard/DashboardHome/DashboardHome";
 import PersonalAttantdance from "../layout/Dashboard/Attendance/PersonalAttendance/PersonalAttantdance";
 import ShowCategories from "../layout/Dashboard/Categories/ShowCategories";
+import CreateCategory from "../layout/Dashboard/Categories/CreateCategory";
+import CashOrder from "../Componets/OrderList/CashOrder";
+import PaypalOrder from "../Componets/OrderList/PaypalOrder";
 
 
 
@@ -56,8 +59,12 @@ const router = createBrowserRouter([
         element: <DashboardHome />
       },
       {
-        path: 'allorder',
-        element: <OrderList />
+        path: 'cash-order',
+        element: <CashOrder />
+      },
+      {
+        path: 'paypal-order',
+        element: <PaypalOrder />
       },
       {
         path: 'allmenu',
@@ -72,11 +79,16 @@ const router = createBrowserRouter([
         element: <AdminRoute><ShowCategories/></AdminRoute>
       },
       {
+
+        path:'add-category',
+        element:<CreateCategory/>
+      },
+      {
         path: 'addemploy',
         element:<AdminRoute> <AddEmploy/></AdminRoute>
       },
       {
-        path: 'edit/:id',
+        path: 'edit-menu/:id',
         element:<AdminRoute> <Editmenu/></AdminRoute>
       },
       {

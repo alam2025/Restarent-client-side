@@ -32,8 +32,7 @@ function Header() {
 
 
       const handleLogout = () => {
-            console.log(user.id)
-
+            
             Swal.fire({
                   title: 'Are you sure to Exit?',
                   showCancelButton: true,
@@ -53,6 +52,7 @@ function Header() {
                               });
 
                               const responseData = await res.json();
+                            
 
 
 
@@ -73,6 +73,7 @@ function Header() {
                                           progress: undefined,
                                           theme: "light",
                                     });
+                                  
                               }
                         } catch (error) {
 
@@ -149,8 +150,8 @@ function Header() {
                                                 <div className="dropdown dropdown-hover">
                                                       <label tabIndex={0} className="text-lg  flex gap-2 items-center">Orders <IoIosArrowDown /></label>
                                                       <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                                            <li><NavLink to='allmenu'>Cash</NavLink></li>
-                                                            <li> <NavLink to='all-categories'>Paypal</NavLink></li>
+                                                            <li><NavLink to='cash-order'>Cash</NavLink></li>
+                                                            <li> <NavLink to='paypal-order'>Paypal</NavLink></li>
                                                       </ul>
                                                 </div>
                                           </li>
@@ -212,7 +213,7 @@ function Header() {
                                           {
                                                 user?.role == 'manager' && <>
 
-                                                      <li >
+<li >
                                                             <div className="dropdown dropdown-hover">
                                                                   <label tabIndex={0} className="text-lg  flex gap-2 items-center">Menu <IoIosArrowDown /></label>
                                                                   <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
