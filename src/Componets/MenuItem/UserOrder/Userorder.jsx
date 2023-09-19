@@ -86,7 +86,7 @@ const Userorder = () => {
                         });
                         deleteShoppingCart();
                         const goToHone=()=>{
-                              location.reload()
+                              
                               navigate('/')
                         }
 
