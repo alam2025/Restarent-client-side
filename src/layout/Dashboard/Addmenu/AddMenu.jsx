@@ -118,9 +118,9 @@ const AddMenu = () => {
               <select className="w-full  border border-gray-300 px-3 py-2 rounded" {...register('category', { required: true })}>
                 <option value="">Select a category</option>
                 {allCategories?.map((category, index) => (
-                  <option key={index} value={category?.category_name}>
-                    {category?.category_name}
-                  </option>
+                  category?.status =='open' && <option key={index} value={category?.category_name}>
+                  {category?.category_name}
+                </option>
                 ))}
               </select>
               {errors.category?.category_name && <p className="text-red-500 text-xs mt-1">Please select a category</p>}

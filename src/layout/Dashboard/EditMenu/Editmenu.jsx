@@ -19,7 +19,7 @@ const Editmenu = () => {
   }
 
   const { name, image, category, recipe, price } = menuItem;
-  console.log(menuItem);
+  
   const onSubmit = async (data) => {
     data.id = id;
     try {

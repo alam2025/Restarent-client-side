@@ -26,6 +26,7 @@ import ShowCategories from "../layout/Dashboard/Categories/ShowCategories";
 import CreateCategory from "../layout/Dashboard/Categories/CreateCategory";
 import CashOrder from "../Componets/OrderList/CashOrder";
 import PaypalOrder from "../Componets/OrderList/PaypalOrder";
+import EditCategory from "../layout/Dashboard/Categories/EditCategory";
 
 
 
@@ -81,7 +82,11 @@ const router = createBrowserRouter([
       {
 
         path:'add-category',
-        element:<CreateCategory/>
+        element:<AdminRoute><CreateCategory/></AdminRoute>
+      },
+      {
+        path:'editCategory/:code',
+        element:<EditCategory/>
       },
       {
         path: 'addemploy',
