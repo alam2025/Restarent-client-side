@@ -13,16 +13,18 @@ const Userorder = () => {
       const[Paypal,seTpaypal]=useState(false);
       const groupedOrders = {};
       const [url] = useUrl();
+      const [quantity, setQuantity] = useState(1);
 
       const { register, handleSubmit, reset, formState: { errors } } = useForm();
       const [formData, setFormData] = useState();
-      const jobRoles = ['paypal', 'cash',];
+
+
+
 
       const handleChange = (e) => {
             seTpaypal(false);
             const { name, value } = e.target;
-            // setFormData((prevData) => ({ ...prevData, [name]: value }));
-            console.log(e.target.value)
+
             setFormData(e.target.value)
             if(e.target.value==='paypal') {
                   seTpaypal(true);
@@ -32,11 +34,12 @@ const Userorder = () => {
       };
       
       useEffect(() => {
-            const data = getShoppingCart();
+            let data = getShoppingCart();
 
-            console.log(data)
+
             if (Array.isArray(data)) {
                   setOrderData(data);
+                  console.log(data);
                   const total = data.reduce((total, orderItem) => {
                         return total + orderItem.foodPrice * orderItem.quantity;
                   }, 0);
@@ -44,13 +47,14 @@ const Userorder = () => {
             } else {
                   console.error("Error: getShoppingCart() did not return an array.");
             }
-      }, []);
+      }, [quantity]);
 
-      console.log(Paypal)
+
+
 
       const onSubmit = async (data, e) => {
             e.preventDefault();
-            console.log(formData)
+
             const orderItem = {
                   name: data.name,
                   mobile: data.mobile,
@@ -60,7 +64,7 @@ const Userorder = () => {
 
             };
 
-            console.log(orderItem)
+
 
             try {
                   const res = await fetch(`${url}/orderItem`, {
@@ -89,8 +93,12 @@ const Userorder = () => {
 
                         });
                         deleteShoppingCart();
+                        const goToHone=()=>{
+                              location.reload()
+                              navigate('/')
+                        }
 
-                      navigate('/');
+                        setTimeout(goToHone, 5000)
 
 
 
@@ -132,7 +140,7 @@ const Userorder = () => {
                   quantity,
             });
       });
-
+console.log(Paypal)
       return (
             <div className="pt-6 mt-10">
                   <div className='mb-10'>
@@ -178,98 +186,98 @@ const Userorder = () => {
                               </div>
                         </div>
                   ))}
-                   <button
-                                    className="btn bg-gray-300 w-full font-bold mt-4"
-                                    onClick={() => document.getElementById('my_modal_2').showModal()}
-                              >
-                                    Order
-                              </button>
+                  <button
+                        className="btn bg-gray-300 w-full font-bold mt-4"
+                        onClick={() => document.getElementById('my_modal_2').showModal()}
+                  >
+                        Order
+                  </button>
 
 
 
-<dialog id="my_modal_2" className="modal">
-                              <div className="modal-box">
-                                    <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-4 rounded shadow-md">
+                  <dialog id="my_modal_2" className="modal">
+                        <div className="modal-box">
+                              <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-4 rounded shadow-md">
+                                    <label className="text-sm">
+                                          Enter your Name:
+                                          <input
+                                                className="border bg-gray-100 py-1 px-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                type="text"
+                                                {...register('name', { required: true })}
+                                                required
+                                          />
+                                          {errors.name && <span className="text-red-500 text-xs">Name is required</span>}
+                                    </label>
+                                    <label className="text-sm">
+                                          Enter your Mobile:
+                                          <input
+                                                className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                type="text"
+                                                {...register('mobile', { required: true })}
+                                                required
+                                          />
+                                          {errors.mobile && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                    </label>
+                                    
+                                    { Paypal && <>
                                           <label className="text-sm">
-                                                Enter your Name:
-                                                <input
-                                                      className="border bg-gray-100 py-1 px-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                                      type="text"
-                                                      {...register('name', { required: true })}
-                                                      required
-                                                />
-                                                {errors.name && <span className="text-red-500 text-xs">Name is required</span>}
-                                          </label>
-                                          <label className="text-sm">
-                                                Enter your Mobile:
-                                                <input
-                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                                      type="text"
-                                                      {...register('mobile', { required: true })}
-                                                      required
-                                                />
-                                                {errors.mobile && <span className="text-red-500 text-xs">Mobile is required</span>}
-                                          </label>
-                                          <div className="mb-4">
-                                                <label className="block text-sm font-semibold mb-1">Way To purchase</label>
-                                                <select
-                                                      name="role"
-                                                      className="w-full border border-gray-300 bg-white text-black focus:ring focus:ring-blue-300 px-3 py-2 rounded"
-                                                      value={formData}
-                                                      onChange={handleChange}
-                                                      required
-                                                >
-                                                      
-                                                      <option  disabled selected >Payment Method</option>
-                                                      <option  value="cash" >cash</option>
-                                                      <option value="paypal" >paypal</option>
-                                                      {/* <option value="" disabled>Select payment method</option>
+                                          Enter your Email:
+                                          <input
+                                                className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                type="email"
+                                                {...register('emial', { required: true })}
+                                                required
+                                          />
+                                          {errors.email && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                    </label>
+                                    <label className="text-sm">
+                                          Enter your Password:
+                                          <input
+                                                className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                type="password"
+                                                {...register('pass', { required: true })}
+                                                required
+                                          />
+                                          {errors.pass && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                    </label>
+                                    
+                                    
+                                    
+                                    </>}
+                                    <div className="mb-4">
+                                          <label className="block text-sm font-semibold mb-1">Way To purchase</label>
+                                          <select
+                                                name="role"
+                                                className="w-full border border-gray-300 bg-white text-black focus:ring focus:ring-blue-300 px-3 py-2 rounded"
+                                                value={formData}
+                                                onChange={handleChange}
+                                                required
+                                          >
+
+                                                <option disabled selected >Payment Method</option>
+                                                <option value="cash" >cash</option>
+                                                <option value="paypal" >paypal</option>
+                                                {/* <option value="" disabled>Select payment method</option>
               {jobRoles.map((role, index) => (
                 <option key={index} value={role}>{role}</option>
               ))} */}
-                                                </select>
-                                          </div>
-
-                                       { Paypal && <> <label className="text-sm">
-                                                Enter your Email:
-                                                <input
-                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                                      type="text"
-                                                      {...register('email', { required: true })}
-                                                      required
-                                                />
-
-                                                {errors.email && <span className="text-red-500 text-xs">Mobile is required</span>}
-                                          </label>
-                                          <label className="text-sm">
-                                                Enter your Password:
-                                                <input
-                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                                      type="text"
-                                                      {...register('email', { required: true })}
-                                                      required
-                                                />
-
-                                                {errors.email && <span className="text-red-500 text-xs">Mobile is required</span>}
-                                          </label>
+                                          </select>
+                                    </div>
 
 
-
-
-                                          </>  }
-                                          <button
-                                                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300 w-full"
-                                                type="submit"
-                                          >
-                                                Order Now
-                                          </button>
-                                    </form>
-                              </div>
-                              <form method="dialog" className="modal-backdrop">
-                                    <button>close</button>
+                                    <button
+                                          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300 w-full"
+                                          type="submit"
+                                    >
+                                          Order Now
+                                    </button>
                               </form>
-                        </dialog> 
-            
+                        </div>
+                        <form method="dialog" className="modal-backdrop">
+                              <button>close</button>
+                        </form>
+                  </dialog>
+
                   <div className="mt-10">
                         <Link to="/">
                               <button

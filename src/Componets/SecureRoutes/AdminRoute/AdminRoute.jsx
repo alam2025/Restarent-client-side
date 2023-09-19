@@ -14,7 +14,6 @@ const AdminRoute = ({children}) => {
      const [isAdmin,isAdminLoading]=useAdmin();
      
 
-     
       
       if(loading || isAdminLoading){
             return  <Loader/>

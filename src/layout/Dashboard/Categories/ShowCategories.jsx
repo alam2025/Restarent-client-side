@@ -4,13 +4,21 @@ import category from '../../../assets/category.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer } from 'react-toastify';
+import useCategory from '../../../CustomHooks/GetCategories';
+import Loader from '../../../Componets/Loader';
+import CategoryCard from './CategoryCard';
 const ShowCategories = () => {
+      const [searchQuery, setSearchQuery] = useState('');
+      const [allCategories,isCategoryLoading]= useCategory();
       const [formData, setFormData] = useState({
             name: '',
             email: '',
             phone: '',
             role: '',
           });
+
+          if(isCategoryLoading) return <Loader/>
+          
       const handleChange = (e) => {
             const { name, value } = e.target;
             setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -18,8 +26,17 @@ const ShowCategories = () => {
       const handleSubmit = async (e) => {
             e.preventDefault();
           }
+
+          const handleSearchChange = (e) => {
+            setSearchQuery(e.target.value);
+          };
+
+          const filteredCategories = allCategories.filter((categoryItem) =>
+          categoryItem?.category_name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
       return (
-            <div><button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button>
+            <div>
                   <h1 className="text-2xl text-center font-bold mb-5">Categories</h1>
                   <div className='flex gap-2 items-center md:gap-20  justify-center m-4'>
 
@@ -27,41 +44,18 @@ const ShowCategories = () => {
                               type='search'
                               className='py-2 px-10 w-full outline-none rounded-lg  text-black shadow-sm bg-slate-100' // Add border and border-black classes
                               placeholder='Search...'
+                              onChange={handleSearchChange}
 
                         />
-                        <button className='btn bg-blue-500 text-white' onClick={() => document.getElementById('my_modal_5').showModal()}>Add Category</button>
+                        <Link to='/dashboardapp/add-category'><button className='btn bg-blue-500 text-white'>Add Category</button></Link>
                   </div>
 
                   <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-                        <div className=' rounded-md border shadow-md bg-gray-100  max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button onClick={()=>document.getElementById('my_modal_5').showModal()} className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
+                        {
+                              filteredCategories?.map((category,index)=><CategoryCard key={index} category={category}/>)
+                        }
                        
-                        <div className=' rounded-md border shadow-md bg-gray-100 max-w-xs'>
-                              <div className=' flex items-center gap-3 justify-between pr-5'>
-                                    <img className=' w-[150px] h-[150px]   rounded-s-md' src={category} alt="" />
-                                    <div>
-                                          <p>Code : F1201</p>
-                                          <h1 className=' text-xl font-semibold'>Desert</h1>
-                                          <div className=' flex gap-3 justify-between mt-4'>
-                                                <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2'>  <FontAwesomeIcon icon={faEdit} /></button>
-                                                <button className='bg-red-500 text-white px-2 py-1 rounded mr-2'> <FontAwesomeIcon icon={faTrash} /></button>
-                                          </div>
-                                    </div>
-                              </div>
-
-                        </div>
+                        
                   </div>
 
                   {/* modal  */}
@@ -120,11 +114,11 @@ const ShowCategories = () => {
                                           </div>
 
                                     </div>
-                                    <div className="modal-action">
+                                    <div className="modal-action absolute top-0 right-3">
                                           <form method="dialog">
                                                 {/* if there is a button in form, it will close the modal */}
-                                                <button className="btn btn-sm p-2">Cancle</button>
-                                                <button className="btn">Add</button>
+                                                <button className="btn btn-sm p-2 text-red-500">Cancle</button>
+                                              
 
                                           </form>
                                     </div>

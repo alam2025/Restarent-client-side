@@ -15,7 +15,7 @@ const {count,addData}= useContext(DataContext)
   const { menu, isLoading, refetch } = MenuData();
   const [url] = useUrl();
   const { name, image, price, recipe, id, category } = item;
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const inputRef = useRef(null);
   const [user, setuser] = useState('');
   const [loading, setloading] = useState(false);
@@ -27,7 +27,7 @@ const {count,addData}= useContext(DataContext)
   };
 
   const handleDecrement = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(prevQuantity => prevQuantity - 1);
     }
   };
@@ -37,7 +37,7 @@ const handleAddToCart =()=>{
  
   console.log('abc');
 }
-console.log(count);
+
   const onSubmit = async (data, e) => {
     e.preventDefault(); // Prevent form submission
 

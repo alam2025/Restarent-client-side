@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MenuCard = ({ menu }) => {
-      console.log(menu);
+     
       return (
             <div className=' rounded-lg border flex flex-col'>
                   <img className=' rounded-t-lg' src={menu?.image} alt="" />
@@ -17,8 +18,8 @@ const MenuCard = ({ menu }) => {
 
                   </div>
                   <div className=' flex justify-between mt-auto px-6 pb-4'>
-                        <button className=' bg-blue-500 px-10 py-2 hover:bg-blue-900 text-white rounded-lg '>Edit</button>
-                        <button className='bg-red-500 hover:bg-red-900 text-white px-10 py-2 rounded-lg '>Delete</button>
+                        <Link to={`/dashboardapp/edit-menu/${menu.id}`}><button className=' bg-blue-500 px-4 py-1 hover:bg-blue-900 text-white rounded-lg '>Edit</button></Link>
+                        <button className='bg-red-500 hover:bg-red-900 text-white px-4 py-1 rounded-lg '>Delete</button>
                   </div>
 
 
