@@ -10,6 +10,7 @@ const Userorder = () => {
       const navigate = useNavigate()
       const [orderdata, setOrderData] = useState([]);
       const [total, setTotal] = useState(0);
+      const[Paypal,seTpaypal]=useState(false);
       const groupedOrders = {};
       const [url] = useUrl();
 
@@ -18,11 +19,18 @@ const Userorder = () => {
       const jobRoles = ['paypal', 'cash',];
 
       const handleChange = (e) => {
+            seTpaypal(false);
             const { name, value } = e.target;
             // setFormData((prevData) => ({ ...prevData, [name]: value }));
             console.log(e.target.value)
             setFormData(e.target.value)
+            if(e.target.value==='paypal') {
+                  seTpaypal(true);
+
+            }
+
       };
+      
       useEffect(() => {
             const data = getShoppingCart();
 
@@ -38,7 +46,7 @@ const Userorder = () => {
             }
       }, []);
 
-      console.log(total)
+      console.log(Paypal)
 
       const onSubmit = async (data, e) => {
             e.preventDefault();
@@ -221,6 +229,34 @@ const Userorder = () => {
               ))} */}
                                                 </select>
                                           </div>
+
+                                       { Paypal && <> <label className="text-sm">
+                                                Enter your Email:
+                                                <input
+                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                      type="text"
+                                                      {...register('email', { required: true })}
+                                                      required
+                                                />
+
+                                                {errors.email && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                          </label>
+                                          <label className="text-sm">
+                                                Enter your Password:
+                                                <input
+                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                      type="text"
+                                                      {...register('email', { required: true })}
+                                                      required
+                                                />
+
+                                                {errors.email && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                          </label>
+
+
+
+
+                                          </>  }
                                           <button
                                                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:ring focus:ring-blue-300 w-full"
                                                 type="submit"
