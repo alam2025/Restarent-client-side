@@ -11,7 +11,7 @@ import { DataContext } from '../../../App';
 
 
 const FoodCard = ({ item }) => {
-const {count,addData}= useContext(DataContext)
+const {addData}= useContext(DataContext)
   const { menu, isLoading, refetch } = MenuData();
   const [url] = useUrl();
   const { name, image, price, recipe, id, category } = item;
@@ -33,42 +33,31 @@ const {count,addData}= useContext(DataContext)
   };
 
 
-const handleAddToCart =()=>{
- 
-  console.log('abc');
-}
+
 
   const onSubmit = async (data, e) => {
     e.preventDefault(); // Prevent form submission
-
-    // console.log('Form submitted:', data);
-    // alert(quantity)
+ 
     setQuantity(parseInt(data.quantity)); // Parse the quantity as an integer
     SetUser(data.name, data.mobile);
     const OrderItem = {
-      customer_name: data.name,
-      mobile: data.mobile,
-      quantity: parseInt(quantity),
-      Food_name: name,
-      foodImg: image,
-      foodPrice: price,
-      food_receipe: recipe,
+     
       foodId: id,
-      foodCategory: category,
     };
-    setuser(OrderItem);
-    addToDb(id, OrderItem);
-    toast.success("Menu is Added to Cart !!!", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
+    // setuser(OrderItem);
+    addData(OrderItem)
+    // addToDb(id, OrderItem);
+    // toast.success("Menu is Added to Cart !!!", {
+    //   position: "top-right",
+    //   autoClose: 2000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
 
-    });
+    // });
     location.reload()
 
   
@@ -87,37 +76,11 @@ const handleAddToCart =()=>{
 
         <div className="">
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-            <div className="flex items-center space-x-4">
-              <label className="text-sm">
-                Enter your Quantity:
-                <div className="flex items-center">
-                  <button
-                    type="button"
-                    onClick={handleDecrement}
-                    className="bg-slate-100 py-1 px-2 rounded-md hover:bg-slate-200 transition-colors"
-                  >
-                    -
-                  </button>
-                  <input
-                    className="border bg-slate-100 py-1 px-4 rounded-md w-14 text-center"
-                    type="number"
-                    value={quantity}
-                    readOnly
-                  />
-                  <button
-                    type="button"
-                    onClick={handleIncrement}
-                    className="bg-slate-100 py-1 px-2 rounded-md hover:bg-slate-200 transition-colors"
-                  >
-                    +
-                  </button>
-                </div>
-              </label>
-            </div>
+            
 
             <div className="w-full relative  bottom-0">
               <button
-                onClick={handleAddToCart}
+                
                 className="mt-3 bottom-0 btn btn-outline border-0 border-b-4 bg-slate-100 border-orange-400 py-2 rounded-md hover:bg-slate-200 transition-colors"
               >
                 Add to cart

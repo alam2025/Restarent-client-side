@@ -1,24 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getShoppingCart } from '../../utitilies/databse';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'; // Add this line
-import { DataContext } from '../../../App';
+
+import Loader from '../../Loader';
 
 
 const Navbar = () => {
- const {count}= useContext(DataContext)
-  const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-  const [orderdata, setOrderData] = useState([]);
 
-  useEffect(() => {
-    setOrderData(getShoppingCart());
-  }, []);
 
- 
+    const [menuOpen, setMenuOpen] = useState(false);
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+    const [orderdata, setOrderData] = useState([]);
+
+    // useEffect(() => {
+    //     setOrderData(getShoppingCart());
+    // }, []);
+
+    const getSavedData = localStorage.getItem('shopping-cart');
+    const cartItem = JSON.parse(getSavedData);
+    if (!cartItem) return <Loader />
+
+    const updatedItems = [];
+    let count = 0
+    for (const key in cartItem) {
+        count += cartItem[key]
+
+    }
+
+
+
+
+
+
 
     return (
         <nav className="bg-gray-500 shadow-lg fixed z-10 top-0 w-full py-8 mb-12">
@@ -30,12 +47,12 @@ const Navbar = () => {
                     <ul className="flex space-x-4">
                         <li><Link to="/" className="text-white">Home</Link></li>
                         <li><Link to="/dashboardapp" className="text-white">Dashboard</Link></li>
-                      
+
                         <li> <Link to="/order" className="text-gray-100  flex justify-center items-center">
-            <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-bold text-2xl  " />
-            <span className='font-bold text-2xl top-3  text-white rounded-xl'>{orderdata.length || 0}</span>
-          </Link></li>
-                        
+                            <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-bold text-2xl  " />
+                            <span className='font-bold text-2xl top-3  text-white rounded-xl'>{count|| 0}</span>
+                        </Link></li>
+
                     </ul>
                 </div>
                 <div className="sm:hidden">
@@ -48,11 +65,11 @@ const Navbar = () => {
                         <ul className="absolute top-12 right-0 bg-black text-white p-2 space-y-2 border shadow-2xl font-bold me-3">
                             <li><Link to="/" className="text-gray-100">Home</Link></li>
                             <li><Link to="/dashboardapp" className="text-white">Dashboard</Link></li>
-                          
+
                             <li> <Link to="/order" className="text-gray-100  flex justify-center items-center">
-            <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-bold text-2xl  " />
-            <span className='font-bold text-2xl top-3  text-white rounded-xl'>{orderdata.length || 0}</span>
-          </Link></li>
+                                <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-bold text-2xl  " />
+                                <span className='font-bold text-2xl top-3  text-white rounded-xl'>{count || 0}</span>
+                            </Link></li>
                         </ul>
                     )}
                 </div>

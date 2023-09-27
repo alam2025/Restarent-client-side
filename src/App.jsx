@@ -4,21 +4,24 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Outlet } from 'react-router-dom'
 import Navbar from './Componets/Shared/Navbar/Navbar'
+import { addToDb } from './Componets/utitilies/databse'
 export const DataContext= createContext(null)
 function App() {
-  let [count, setCount] = useState(1)
-  const addData=()=>{
-    setCount(count++)
+  
+  
+  const addData=(data)=>{
+    console.log(data.foodId);
+    addToDb(data?.foodId)
   }
 const info={
-  count,
+
   addData
 }
   return (
     <div className=''>
       <DataContext.Provider value={info}>
       <Navbar/>
-      <div className='w-[80%] mx-auto mt-32'>
+      <div className='w-[90%] mx-auto mt-32'>
 
         <Outlet></Outlet>
       </div>

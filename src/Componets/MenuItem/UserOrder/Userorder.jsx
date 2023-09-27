@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { deleteShoppingCart, getShoppingCart } from '../../utitilies/databse';
+import { addToDb, deleteShoppingCart, getShoppingCart, minimizeToDb, removeFromDb } from '../../utitilies/databse';
 import { useForm } from 'react-hook-form';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-
+import useCartData from '../../../CustomHooks/CartItemFromStore';
+import Loader from '../../Loader';
+import MenuData from '../../../CustomHooks/MenuData/MenuData';
+import { HiMinus, HiPlus } from "react-icons/hi";
+import { RiDeleteBackFill, RiDeleteBin5Fill } from "react-icons/ri";
 const Userorder = () => {
+      const { menu, isLoading } = MenuData()
+      const [cart, setCart] = useState([])
       const navigate = useNavigate()
       const [orderdata, setOrderData] = useState([]);
       const [total, setTotal] = useState(0);
-      const[Paypal,seTpaypal]=useState(false);
+      const [Paypal, seTpaypal] = useState(false);
       const groupedOrders = {};
       const [url] = useUrl();
       const [quantity, setQuantity] = useState(1);
@@ -18,37 +24,67 @@ const Userorder = () => {
       const { register, handleSubmit, reset, formState: { errors } } = useForm();
       const [formData, setFormData] = useState();
 
+      if (isLoading) return <Loader />
+
+      // get data from stoirage 
+      const getSavedData = localStorage.getItem('shopping-cart');
+      const cartItem = JSON.parse(getSavedData);
+      if (!cartItem) return <Loader />
+
+      const updatedItems = [];
+
+      for (const key in cartItem) {
+            const targetItem = menu?.find(data => data.id == key);
+
+            if (targetItem) {
+                  const updatedItem = { ...targetItem, quantity: cartItem[key] };
+                  updatedItems.push(updatedItem);
+            }
+      }
 
 
+
+      // calculate total price 
+      const totalPrice = updatedItems.reduce((accumulator, currentValue) => {
+            return accumulator + currentValue.price
+      }, 0)
 
       const handleChange = (e) => {
             seTpaypal(false);
             const { name, value } = e.target;
 
             setFormData(e.target.value)
-            if(e.target.value==='paypal') {
+            if (e.target.value === 'paypal') {
                   seTpaypal(true);
 
             }
 
       };
-      
-      useEffect(() => {
-            let data = getShoppingCart();
 
 
-            if (Array.isArray(data)) {
-                  setOrderData(data);
-                  console.log(data);
-                  const total = data.reduce((total, orderItem) => {
-                        return total + orderItem.foodPrice * orderItem.quantity;
-                  }, 0);
-                  setTotal(total.toFixed(2));
-            } else {
-                  console.error("Error: getShoppingCart() did not return an array.");
-            }
-      }, [quantity]);
 
+
+      // increase quantity 
+      const handleIncreaseQuantity = id => {
+            addToDb(id)
+            location.reload()
+      }
+      // increase quantity 
+
+      //decreases quantity
+      const handleDecreaseQuantity = id => {
+            minimizeToDb(id);
+
+            location.reload()
+      }
+      //decreases quantity
+
+      //     delete item 
+      const handleDeleteItem = id => {
+            removeFromDb(id);
+            location.reload()
+      }
+      //     delete item 
 
 
 
@@ -58,89 +94,95 @@ const Userorder = () => {
             const orderItem = {
                   name: data.name,
                   mobile: data.mobile,
-                  orderdata_array: orderdata,
-                  total: total,
+                  orderdata_array: updatedItems,
+                  total: totalPrice,
                   wayToPayment: formData,
+                  paypalEmail : data?.emial || null,
+                  paypalPass:data?.pass || null
+
 
             };
 
 
-
-            try {
-                  const res = await fetch(`${url}/orderItem`, {
-                        method: 'POST',
-                        headers: {
-                              'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(orderItem),
-                  });
-
-                  const responseData = await res.json();
+            console.log(orderItem);
 
 
 
-                  if (responseData.InsertedId > 0) {
-                        reset()
-                        toast.success(responseData.message, {
-                              position: "top-right",
-                              autoClose: 5000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: "light",
+            // try {
+            //       const res = await fetch(`${url}/orderItem`, {
+            //             method: 'POST',
+            //             headers: {
+            //                   'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify(orderItem),
+            //       });
 
-                        });
-                        deleteShoppingCart();
-                        const goToHone=()=>{
-                              
-                              navigate('/')
-                        }
-
-                        setTimeout(goToHone, 5000)
+            //       const responseData = await res.json();
 
 
 
-                  } else {
-                        toast.error(responseData.message, {
-                              position: "top-right",
-                              autoClose: 5000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: "light",
-                        });
-                  }
-            } catch (error) {
-                  console.error("Error while sending the order:", error);
-                  toast.error("Error while sending the order. Please try again later.", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                  });
-            }
+            //       if (responseData.InsertedId > 0) {
+            //             reset()
+            //             toast.success(responseData.message, {
+            //                   position: "top-right",
+            //                   autoClose: 5000,
+            //                   hideProgressBar: false,
+            //                   closeOnClick: true,
+            //                   pauseOnHover: true,
+            //                   draggable: true,
+            //                   progress: undefined,
+            //                   theme: "light",
+
+            //             });
+            //             deleteShoppingCart();
+            //             const goToHone = () => {
+
+            //                   navigate('/')
+            //             }
+
+            //             setTimeout(goToHone, 5000)
+
+
+
+            //       } else {
+            //             toast.error(responseData.message, {
+            //                   position: "top-right",
+            //                   autoClose: 5000,
+            //                   hideProgressBar: false,
+            //                   closeOnClick: true,
+            //                   pauseOnHover: true,
+            //                   draggable: true,
+            //                   progress: undefined,
+            //                   theme: "light",
+            //             });
+            //       }
+            // } catch (error) {
+            //       console.error("Error while sending the order:", error);
+            //       toast.error("Error while sending the order. Please try again later.", {
+            //             position: "top-right",
+            //             autoClose: 5000,
+            //             hideProgressBar: false,
+            //             closeOnClick: true,
+            //             pauseOnHover: true,
+            //             draggable: true,
+            //             progress: undefined,
+            //             theme: "light",
+            //       });
+            // }
       };
       // Group the order data by phone number
-      orderdata.forEach(orderItem => {
-            const { Food_name, foodPrice, quantity, mobile } = orderItem;
-            if (!groupedOrders[mobile]) {
-                  groupedOrders[mobile] = [];
-            }
-            groupedOrders[mobile].push({
-                  Food_name,
-                  foodPrice,
-                  quantity,
-            });
-      });
-console.log(Paypal)
+      // orderdata.forEach(orderItem => {
+      //       const { Food_name, foodPrice, quantity, mobile } = orderItem;
+      //       if (!groupedOrders[mobile]) {
+      //             groupedOrders[mobile] = [];
+      //       }
+      //       groupedOrders[mobile].push({
+      //             Food_name,
+      //             foodPrice,
+      //             quantity,
+      //       });
+      // });
+      // console.log(Paypal)
       return (
             <div className="pt-6 mt-10">
                   <div className='mb-10'>
@@ -151,47 +193,61 @@ console.log(Paypal)
 
                   </div>
                   <ToastContainer />
-                  {Object.keys(groupedOrders).map((mobile, index) => (
-                        <div key={index} className="">
-                              <h2 className='text-center uppercase font-bold mb-2'>Please Order your cart items</h2>
-                              <hr />
-                              {/* <h2 className="text-xl font-semibold mb-2">Mobile Number: {mobile}</h2> */}
-                              <div className="bg-white p-4 rounded shadow-2xl">
-                                    <table className="w-full">
-                                          <thead>
-                                                <tr className="bg-gray-100">
-                                                      <th className="border px-4 py-2">Order Name</th>
-                                                      <th className="border px-4 py-2">Price</th>
-                                                      <th className="border px-4 py-2">Quantity</th>
-                                                </tr>
-                                          </thead>
-                                          <tbody>
-                                                {groupedOrders[mobile].map((orderItem, subIndex) => (
-                                                      <tr key={subIndex}>
-                                                            <td className="border px-4 py-2">{orderItem.Food_name}</td>
-                                                            <td className="border px-4 py-2">${orderItem.foodPrice}</td>
-                                                            <td className="border px-4 py-2">{orderItem.quantity}</td>
-                                                      </tr>
-                                                ))}
-                                                <tr className="bg-gray-300 font-semibold">
-                                                      <td className="border px-4 py-2">Total</td>
-                                                      <td className="border px-4 py-2"></td>
-                                                      <td className="border px-4 py-2">
-                                                            {groupedOrders[mobile].reduce((total, item) => total + item.foodPrice * item.quantity, 0)}
-                                                      </td>
-                                                </tr>
-                                          </tbody>
-                                    </table>
 
+                  <div className="w-[80%] mx-auto bg-white p-10 rounded shadow-2xl overflow-x-auto">
+
+                        {/* <h2 className="text-xl font-semibold mb-2">Mobile Number: {mobile}</h2> */}
+                        <div className="">
+                              <table className=" table table-zebra">
+                                    <thead>
+                                          <tr className="bg-gray-100">
+                                                <th className="border px-4 py-2">order No.</th>
+                                                <th className="border px-4 py-2">Order Name</th>
+                                                <th className="border px-4 py-2">Price</th>
+                                                <th className="border px-4 py-2">Quantity</th>
+                                                <th className="border px-4 py-2">Sub-Total Price</th>
+                                                <th className="border px-4 py-2 text-center">Actions</th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                          {updatedItems?.map((item, index) => (
+                                                <tr className=' text-end' key={index}>
+
+                                                      <td>{index + 1}</td>
+                                                      <td>{item.name}</td>
+                                                      <td className=' '>${item.price}</td>
+                                                      <td className='flex items-center gap-3'>
+                                                            <button onClick={() => handleDecreaseQuantity(item?.id)} ><HiMinus size={25} /></button>
+                                                            <span>{item?.quantity}</span>
+
+                                                            <button onClick={() => handleIncreaseQuantity(item?.id)}><HiPlus size={25} /></button>
+                                                      </td>
+
+                                                      <td>${item.quantity * item.price}</td>
+                                                      <td>
+                                                            <button onClick={() => handleDeleteItem(item?.id)}><RiDeleteBin5Fill className=' text-red-400 hover:text-red-600' size={25} /></button>
+                                                      </td>
+
+                                                </tr>
+                                          ))}
+
+                                    </tbody>
+
+                              </table>
+                              <div>
+                                    <h1 className=' text-lg font-semibold text-end py-4 px-6'>Total Price : ${totalPrice}</h1>
                               </div>
+
                         </div>
-                  ))}
-                  <button
-                        className="btn bg-gray-300 w-full font-bold mt-4"
-                        onClick={() => document.getElementById('my_modal_2').showModal()}
-                  >
-                        Order
-                  </button>
+                        <button
+                              className="btn bg-gray-300 w-full font-bold mt-4"
+                              onClick={() => document.getElementById('my_modal_2').showModal()}
+                        >
+                              Order
+                        </button>
+                  </div>
+
+
 
 
 
@@ -218,31 +274,31 @@ console.log(Paypal)
                                           />
                                           {errors.mobile && <span className="text-red-500 text-xs">Mobile is required</span>}
                                     </label>
-                                    
-                                    { Paypal && <>
+
+                                    {Paypal && <>
                                           <label className="text-sm">
-                                          Enter your Email:
-                                          <input
-                                                className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                                type="email"
-                                                {...register('emial', { required: true })}
-                                                required
-                                          />
-                                          {errors.email && <span className="text-red-500 text-xs">Mobile is required</span>}
-                                    </label>
-                                    <label className="text-sm">
-                                          Enter your Password:
-                                          <input
-                                                className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
-                                                type="password"
-                                                {...register('pass', { required: true })}
-                                                required
-                                          />
-                                          {errors.pass && <span className="text-red-500 text-xs">Mobile is required</span>}
-                                    </label>
-                                    
-                                    
-                                    
+                                                Enter your Email:
+                                                <input
+                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                      type="email"
+                                                      {...register('emial', { required: true })}
+                                                      required
+                                                />
+                                                {errors.email && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                          </label>
+                                          <label className="text-sm">
+                                                Enter your Password:
+                                                <input
+                                                      className="border bg-gray-100 py-1 px-4 mb-4 rounded-md focus:ring focus:ring-blue-300 w-full"
+                                                      type="password"
+                                                      {...register('pass', { required: true })}
+                                                      required
+                                                />
+                                                {errors.pass && <span className="text-red-500 text-xs">Mobile is required</span>}
+                                          </label>
+
+
+
                                     </>}
                                     <div className="mb-4">
                                           <label className="block text-sm font-semibold mb-1">Way To purchase</label>

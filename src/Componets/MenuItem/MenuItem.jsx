@@ -18,41 +18,46 @@ const MenuItem = () => {
   const drinks = menu?.filter(item => item.category === 'drinks');
 
 
-const handleCategory=(category)=>{}
+  const handleCategory = (category) => { }
   return (
     <div className="mx-auto w-full">
-      <Tabs>
-        <TabList className="flex flex-wrap shadow-2xl w-[100%] font-serif rounded-full bg-gray-300 rounded-lg p-2 justify-between">
-          {
-            allCategories?.map((category, index) =>
-              <Tab key={index} onClick={()=>handleCategory(category)} className="py-2 px-4 cursor-pointer transition-colors rounded-2xl hover:bg-gray-500 uppercase">
-                {category?.category_name}
-                
-              </Tab>)
-          }
-        
+      
+        <div className=' '>
+          <Tabs>
+            <TabList className="flex flex-wrap shadow-2xl w-[100%] font-serif rounded-full bg-gray-300 rounded-lg p-2 justify-between">
+              {
+                allCategories?.map((category, index) =>
+                  <Tab key={index} onClick={() => handleCategory(category)} className="py-2 px-4 cursor-pointer transition-colors rounded-2xl hover:bg-gray-500 uppercase">
+                    {category?.category_name}
 
-        </TabList>
+                  </Tab>)
+              }
 
-        
-          
 
-        <TabPanel >
-          <OrderTab items={deserts}></OrderTab>
-        </TabPanel>
-        <TabPanel>
-          <OrderTab items={soup}></OrderTab>
-        </TabPanel>
-        <TabPanel>
-          <OrderTab items={salad}></OrderTab>
-        </TabPanel>
-        <TabPanel>
-          <OrderTab items={pizza}></OrderTab>
-        </TabPanel>
-        <TabPanel>
-          <OrderTab items={drinks}></OrderTab>
-        </TabPanel>
-      </Tabs>
+            </TabList>
+
+
+
+
+            <TabPanel >
+              <OrderTab items={deserts}></OrderTab>
+            </TabPanel>
+            <TabPanel>
+              <OrderTab items={soup}></OrderTab>
+            </TabPanel>
+            <TabPanel>
+              <OrderTab items={salad}></OrderTab>
+            </TabPanel>
+            <TabPanel>
+              <OrderTab items={pizza}></OrderTab>
+            </TabPanel>
+            <TabPanel>
+              <OrderTab items={drinks}></OrderTab>
+            </TabPanel>
+          </Tabs>
+        </div>
+       
+      
     </div>
   );
 };
