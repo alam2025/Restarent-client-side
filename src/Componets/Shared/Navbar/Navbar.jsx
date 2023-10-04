@@ -22,7 +22,7 @@ const Navbar = () => {
 
     const getSavedData = localStorage.getItem('shopping-cart');
     const cartItem = JSON.parse(getSavedData);
-    if (!cartItem) return <Loader />
+    // if (!cartItem) return <Loader />
 
     const updatedItems = [];
     let count = 0

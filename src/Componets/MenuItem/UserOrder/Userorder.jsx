@@ -29,7 +29,7 @@ const Userorder = () => {
       // get data from stoirage 
       const getSavedData = localStorage.getItem('shopping-cart');
       const cartItem = JSON.parse(getSavedData);
-      if (!cartItem) return <Loader />
+      // if (!cartItem) return <Loader />
 
       const updatedItems = [];
 
@@ -97,78 +97,83 @@ const Userorder = () => {
                   orderdata_array: updatedItems,
                   total: totalPrice,
                   wayToPayment: formData,
-                  paypalEmail : data?.emial || null,
-                  paypalPass:data?.pass || null
+                  paypalEmail: data?.emial || null,
+                  paypalPass: data?.pass || null
 
 
             };
 
 
-            console.log(orderItem);
 
 
 
-            // try {
-            //       const res = await fetch(`${url}/orderItem`, {
-            //             method: 'POST',
-            //             headers: {
-            //                   'Content-Type': 'application/json',
-            //             },
-            //             body: JSON.stringify(orderItem),
-            //       });
 
-            //       const responseData = await res.json();
+            try {
+                  const res = await fetch(`${url}/orderItem`, {
+                        method: 'POST',
+                        headers: {
+                              'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(orderItem),
+                  });
 
-
-
-            //       if (responseData.InsertedId > 0) {
-            //             reset()
-            //             toast.success(responseData.message, {
-            //                   position: "top-right",
-            //                   autoClose: 5000,
-            //                   hideProgressBar: false,
-            //                   closeOnClick: true,
-            //                   pauseOnHover: true,
-            //                   draggable: true,
-            //                   progress: undefined,
-            //                   theme: "light",
-
-            //             });
-            //             deleteShoppingCart();
-            //             const goToHone = () => {
-
-            //                   navigate('/')
-            //             }
-
-            //             setTimeout(goToHone, 5000)
+                  const responseData = await res.json();
 
 
 
-            //       } else {
-            //             toast.error(responseData.message, {
-            //                   position: "top-right",
-            //                   autoClose: 5000,
-            //                   hideProgressBar: false,
-            //                   closeOnClick: true,
-            //                   pauseOnHover: true,
-            //                   draggable: true,
-            //                   progress: undefined,
-            //                   theme: "light",
-            //             });
-            //       }
-            // } catch (error) {
-            //       console.error("Error while sending the order:", error);
-            //       toast.error("Error while sending the order. Please try again later.", {
-            //             position: "top-right",
-            //             autoClose: 5000,
-            //             hideProgressBar: false,
-            //             closeOnClick: true,
-            //             pauseOnHover: true,
-            //             draggable: true,
-            //             progress: undefined,
-            //             theme: "light",
-            //       });
-            // }
+
+                  if (responseData.InsertedId > 0) {
+                        localStorage.removeItem('shopping-cart')
+                        reset()
+
+                        toast.success(responseData.message, {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+
+                        });
+
+                        deleteShoppingCart();
+                        const goToHone = () => {
+                              navigate('/')
+                              location.reload()
+                             
+                        }
+
+                        setTimeout(goToHone, 5000)
+
+
+
+                  } else {
+                        toast.error(responseData.message, {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                        });
+                  }
+            } catch (error) {
+                  console.error("Error while sending the order:", error);
+                  toast.error("Error while sending the order. Please try again later.", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                  });
+            }
       };
       // Group the order data by phone number
       // orderdata.forEach(orderItem => {

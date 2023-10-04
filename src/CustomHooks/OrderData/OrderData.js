@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query';
       return res.json()
     }
   })
-
+console.log(order);
 
   return { order, isLoading, refetch};
 };
