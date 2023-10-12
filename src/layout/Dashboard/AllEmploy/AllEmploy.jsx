@@ -12,6 +12,7 @@ const AllEmploy = () => {
   const [url] = useUrl();
   const { employee, isLoading, refetch } = AllemployData();
   const [id, setEditId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
 
   const navigate = useNavigate();
@@ -136,6 +137,18 @@ const AllEmploy = () => {
     }
   }
   // console.log(id)
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filterEmployee = employee.filter((e) =>
+  e?.name.toLowerCase().includes(searchQuery.toLowerCase())
+);
+  // const filteredUser= employee.filter(item =>
+   
+  //   item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
   return (
     <>
       <div className='w-full p-4'>
@@ -146,6 +159,7 @@ const AllEmploy = () => {
             type='search'
             className='p-2 rounded-lg bg-white text-black border border-black' // Add border and border-black classes
             placeholder='Search...'
+            onChange={handleSearchChange}
           />
         </div>
 
@@ -163,17 +177,19 @@ const AllEmploy = () => {
                     <th className="border px-4 py-2">Address</th>
                     <th className="border px-4 py-2">Role</th>
                     <th className="border px-4 py-2">PhoneNumber</th>
+                    <th className="border px-4 py-2">Satus</th>
                     <th className="border px-4 py-2">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {employee.map((emp) => (
+                  {filterEmployee?.map((emp) => (
                     <tr key={emp.id} className="bg-white">
                       <td className="border px-4 py-2">{emp.id}</td>
                       <td className="border px-4 py-2">{emp.name}</td>
                       <td className="border px-4 py-2">{emp.address}</td>
                       <td className="border px-4 py-2">{emp.jobtitle}</td>
                       <td className="border px-4 py-2">{emp.phone}</td>
+                      <td className="border px-4 py-2">{emp.status}</td>
 
                       <td className="border px-4 py-2">
 
@@ -187,12 +203,12 @@ const AllEmploy = () => {
 
 
 
-                        <button
+                        {/* <button
                           className="btn bg-slate-200 shadow-2xl text-red-500 hover:text-red-700 ml-2"
                           onClick={() => onDelete(emp.id)}
                         >
                           <FontAwesomeIcon icon={faTrash} />
-                        </button>
+                        </button> */}
                       </td>
                     </tr>
                   ))}
@@ -302,7 +318,7 @@ const AllEmploy = () => {
 
 
       <dialog id="my_modal_4" className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
+        <div className="modal-box ">
          <EmplyEdidt id={id}></EmplyEdidt>
           <div className="modal-action">
             <form method="dialog">

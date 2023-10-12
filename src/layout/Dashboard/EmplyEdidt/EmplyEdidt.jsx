@@ -4,14 +4,14 @@ import AllemployData from '../../../CustomHooks/AllemployData/AllemployData';
 import useUrl from '../../../CustomHooks/URL/UseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 
-const EmplyEdidt = ({id}) => {
+const EmplyEdidt = ({ id }) => {
   console.log(id)
   const { employee, isLoading, refetch } = AllemployData();
 
   const [formData, setFormData] = useState({});
   const [employItem, setEmployItem] = useState(null);
 
-  const jobRoles = ['Waiter', 'Cook', 'Server', 'Bartender'];
+  const jobRoles = ['manager', 'Waiter', 'Kitchen'];
   const [url] = useUrl();
   useEffect(() => {
     if (!isLoading) {
@@ -19,18 +19,25 @@ const EmplyEdidt = ({id}) => {
       if (item) {
         setEmployItem(item);
         setFormData({
+          id:id,
           name: item.name,
-          email: item.email,
+          address: item.address,
           phone: item.phone,
-          role: item.role,
+          jobtitle: item.jobtitle,
+          status: item.status
           // Add other fields here
         });
       }
     }
   }, [id, employee, isLoading]);
 
+
+  
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(formData);
 
     try {
       const res = await fetch(`${url}/employee/${id}`, {
@@ -42,7 +49,7 @@ const EmplyEdidt = ({id}) => {
       });
 
       const responseData = await res.json();
-      
+
 
       if (responseData.updated > 0) {
         toast.success(responseData.message, {
@@ -55,6 +62,8 @@ const EmplyEdidt = ({id}) => {
           progress: undefined,
           theme: 'light',
         });
+
+        
       } else {
         toast.error(responseData.message, {
           position: 'top-right',
@@ -101,12 +110,12 @@ const EmplyEdidt = ({id}) => {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
 
-          <label className="block font-semibold">Email</label>
+          <label className="block font-semibold">Address</label>
           <input
             type="text"
-            value={formData.email || ''}
+            value={formData.address || ''}
             className="w-full bg-white border border-gray-300 px-3 py-2 rounded text-black"
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
           />
 
           <label className="block font-semibold">Phone</label>
@@ -119,15 +128,32 @@ const EmplyEdidt = ({id}) => {
 
           <label className="block font-semibold">Role</label>
           <select
-            value={formData.role || ''}
-            className="w-full bg-white border border-gray-300 px-3 py-2 rounded text-black"
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+            value={formData.jobtitle || ''}
+            className="select select-bordered w-full max-w-xs"
+            onChange={(e) => setFormData({ ...formData, jobtitle: e.target.value })}
           >
-            <option value="">Select a role</option>
+            {/* <option value="">Select a role</option> */}
             {jobRoles.map(role => (
               <option key={role} value={role}>{role}</option>
             ))}
           </select>
+          <label className="block font-semibold">Status</label>
+          <select
+            value={formData.status || ''}
+            className="select select-bordered w-full max-w-xs"
+            onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+          >
+            {/* <option value="">Select a role</option> */}
+           
+              <option  value={'active'}>Active</option>
+           
+              <option  value={'close'}>Deactive</option>
+           
+
+         
+          </select>
+
+        
 
           {/* Add more form fields here */}
 

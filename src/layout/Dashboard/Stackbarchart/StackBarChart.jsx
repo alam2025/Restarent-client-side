@@ -2,9 +2,11 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import OrderData from '../../../CustomHooks/OrderData/OrderData';
 import Loader from '../../../Componets/Loader';
+import useMostSoldItem from '../../../CustomHooks/GetMostSoldItem';
 
 
-const StackBarChart = () => {
+const StackBarChart = ({data}) => {
+  const [mostSoldItem]= useMostSoldItem()
   const { order,isLoading } =OrderData();
   if(isLoading){
     return <Loader/>
@@ -12,13 +14,13 @@ const StackBarChart = () => {
 
   // Prepare data for the stacked bar chart
   const categoryData = {}; // Example: { "Category1": 100, "Category2": 200, ... }
-  order.forEach(orderItem => {
-    orderItem.items.forEach(item => {
-      const category = item.foodCategory || "Uncategorized";
+  data.forEach(orderItem => {
+    orderItem.foodInfo.forEach(item => {
+      const category = item.category || "Uncategorized";
       if (!categoryData[category]) {
         categoryData[category] = 0;
       }
-      categoryData[category] += item.food_price * item.quantity;
+      categoryData[category] += item.price * item.quantity;
     });
   });
 
@@ -27,6 +29,7 @@ const StackBarChart = () => {
     totalPrice: totalPrice
   }));
 
+  console.log(mostSoldItem);
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart

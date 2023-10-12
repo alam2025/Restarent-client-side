@@ -7,6 +7,7 @@ const TodaysTable = () => {
       const [todayAttendance,isTodayAttendance]= userTodayAttendance();
       if(isTodayAttendance)return <Loader/>
      
+      console.log(todayAttendance);
 
       const indexedData = todayAttendance.map((row, index) => ({ ...row, index: index + 1 }));
       const columns = [
@@ -17,17 +18,13 @@ const TodaysTable = () => {
             },
             {
                   name: 'ID',
-                  selector: row => row.id,
+                  selector: row => row.attendanceId,
                   sortable: true,
             },
-            {
-                  name: 'Name',
-                  selector: row => row.name,
-                  sortable: true,
-            },
+           
             {
                   name: 'Entry Hour',
-                  selector: row => row.entryHour,
+                  selector: row => row.entryTime,
                   sortable: true,
             },
             {
@@ -37,7 +34,7 @@ const TodaysTable = () => {
             },
             {
                   name: 'Exit Hour',
-                  selector: row => row.exitHour,
+                  selector: row => row.exitTime,
                   sortable: true,
             },
             {

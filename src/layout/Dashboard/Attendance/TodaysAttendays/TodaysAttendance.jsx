@@ -13,10 +13,10 @@ const TodaysAttendance = () => {
                         <div className="flex items-center space-x-2 py-4 bg-slate-100">
                               <label className="text-gray-600 flex gap-4 px-6">
                                    <span className=' text-xl font-semibold'> Attendance</span>
-                                    <div className="relative">
+                                    {/* <div className="relative">
                                           <input type="text" className="border border-gray-300 pl-8 pr-2 py-1 rounded-lg focus:outline-none focus:ring focus:border-blue-300"/>
                                                 
-                                    </div>
+                                    </div> */}
                               </label>
                         </div>
 
